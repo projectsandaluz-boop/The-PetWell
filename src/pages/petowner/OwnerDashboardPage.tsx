@@ -28,7 +28,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 

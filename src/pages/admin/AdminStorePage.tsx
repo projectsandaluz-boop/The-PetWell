@@ -23,8 +23,8 @@ import {
   Trash2
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
-import AdminModal from "../components/AdminModal";
+import Logo from "../../components/Logo";
+import AdminModal from "../../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 

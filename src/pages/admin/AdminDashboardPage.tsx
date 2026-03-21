@@ -37,9 +37,9 @@ import {
   ResponsiveContainer 
 } from 'recharts';
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 import { useState } from "react";
-import AdminModal from "../components/AdminModal";
+import AdminModal from "../../components/AdminModal";
 
 const data = [
   { name: 'Mon', activity: 400 },

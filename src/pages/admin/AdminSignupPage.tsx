@@ -11,19 +11,20 @@ import {
   ArrowRight,
   Shield,
   Briefcase,
-  Key
+  Key,
+  Building2,
+  User
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 
-export default function AdminLoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
+export default function AdminSignupPage() {
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login
+    // Simulate signup
     navigate("/admin-dashboard");
   };
 
@@ -45,10 +46,10 @@ export default function AdminLoginPage() {
               className="mt-20"
             >
               <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-8">
-                The <br/> Administrative <br/> Guardian <br/> Console.
+                Register <br/> your Clinic <br/> or Agency.
               </h1>
               <p className="text-white/70 text-lg max-w-sm leading-relaxed">
-                Securely manage providers, oversight clinics, and optimize the empathetic care standards for our pet community.
+                Empower your staff with industry-leading administrative tools and provide a superior digital experience for your clients.
               </p>
             </motion.div>
           </div>
@@ -86,23 +87,49 @@ export default function AdminLoginPage() {
             
             {/* Toggle Admin Login / Register Agency */}
             <div className="flex bg-surface-container-low p-1 rounded-2xl mb-12 w-fit mx-auto lg:mx-0">
+              <Link 
+                to="/admin-login"
+                className="px-8 py-2.5 rounded-xl font-bold text-sm transition-all text-secondary"
+              >
+                Admin Login
+              </Link>
               <button 
                 className="px-8 py-2.5 rounded-xl font-bold text-sm transition-all bg-white shadow-sm text-primary"
               >
-                Admin Login
-              </button>
-              <Link 
-                to="/admin-signup"
-                className="px-8 py-2.5 rounded-xl font-bold text-sm transition-all text-secondary"
-              >
                 Register Agency
-              </Link>
+              </button>
             </div>
 
-            <h2 className="text-3xl font-bold text-primary mb-2">Welcome Back</h2>
-            <p className="text-secondary mb-10">Enter your administrative credentials to access the PetWell HQ.</p>
+            <h2 className="text-3xl font-bold text-primary mb-2">Agency Registration</h2>
+            <p className="text-secondary mb-10">Set up your administrative console and invite your team.</p>
 
-            <form className="space-y-6" onSubmit={handleLogin}>
+            <form className="space-y-5" onSubmit={handleSignup}>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-secondary uppercase tracking-widest">Agency / Clinic Name</label>
+                <div className="relative">
+                  <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
+                  <input 
+                    className="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-primary/20 transition-all text-primary font-medium" 
+                    placeholder="PetWell HQ" 
+                    type="text"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-secondary uppercase tracking-widest">Admin Full Name</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
+                  <input 
+                    className="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-primary/20 transition-all text-primary font-medium" 
+                    placeholder="Jane Smith" 
+                    type="text"
+                    required
+                  />
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <label className="text-xs font-bold text-secondary uppercase tracking-widest">Institutional Email</label>
                 <div className="relative">
@@ -117,10 +144,7 @@ export default function AdminLoginPage() {
               </div>
 
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <label className="text-xs font-bold text-secondary uppercase tracking-widest">Admin Password</label>
-                  <button type="button" className="text-xs font-bold text-primary hover:underline">Reset Credentials</button>
-                </div>
+                <label className="text-xs font-bold text-secondary uppercase tracking-widest">Admin Password</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                   <input 
@@ -132,13 +156,8 @@ export default function AdminLoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <input type="checkbox" id="remember" className="w-5 h-5 rounded border-surface-container-high text-primary focus:ring-primary/20" />
-                <label htmlFor="remember" className="text-sm text-secondary font-medium">Keep session active for 8 hours (Secure Device)</label>
-              </div>
-
               <button className="w-full bg-[#001B3D] text-white font-bold py-5 rounded-2xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10 flex items-center justify-center gap-3">
-                Authenticate Access <ArrowRight className="w-5 h-5" />
+                Complete Registration <ArrowRight className="w-5 h-5" />
               </button>
             </form>
 
@@ -160,10 +179,6 @@ export default function AdminLoginPage() {
                 SSO / SAML
               </button>
             </div>
-
-            <p className="mt-12 text-center text-sm text-secondary">
-              Not an administrator? <Link to="/owner-login" className="text-primary font-bold hover:underline">Go to Pet Owner Portal</Link>
-            </p>
           </div>
         </div>
       </div>

@@ -22,9 +22,9 @@ import {
   Star
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 import { useState } from "react";
-import AdminModal from "../components/AdminModal";
+import AdminModal from "../../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 

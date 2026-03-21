@@ -14,14 +14,16 @@ import {
   Settings, 
   LogOut, 
   ChevronLeft,
-  Upload,
-  Save
+  Save,
+  User,
+  Dog,
+  MapPin
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 
 import React, { useState } from "react";
-import AdminModal from "../components/AdminModal";
+import AdminModal from "../../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -33,7 +35,7 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   </button>
 );
 
-export default function AdminAddPetPage() {
+export default function AdminAddDeliveryPage() {
   const navigate = useNavigate();
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -56,10 +58,10 @@ export default function AdminAddPetPage() {
 
         <nav className="flex-1 mt-8">
           <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
-          <SidebarItem icon={PawPrint} label="Pet Profiles" active onClick={() => navigate("/admin-pet-profiles")} />
+          <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
-          <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
+          <SidebarItem icon={Truck} label="Delivery Tracking" active onClick={() => navigate("/admin-delivery")} />
           <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
@@ -81,14 +83,14 @@ export default function AdminAddPetPage() {
         <header className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-4">
             <button 
-              onClick={() => navigate("/admin-pet-profiles")}
+              onClick={() => navigate("/admin-delivery")}
               className="p-3 rounded-2xl bg-white text-slate-400 hover:text-[#001B3D] shadow-sm transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Add New Pet</h1>
-              <p className="text-slate-500 font-medium">Register a new pet profile in the system.</p>
+              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">New Delivery</h1>
+              <p className="text-slate-500 font-medium">Assign a new delivery agent to a customer order.</p>
             </div>
           </div>
         </header>
@@ -97,66 +99,81 @@ export default function AdminAddPetPage() {
           <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 p-12">
             <form onSubmit={handleSubmit} className="space-y-10">
               
-              {/* Image Upload Section */}
-              <div className="flex items-center gap-10">
-                <div className="w-32 h-32 rounded-[32px] bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 group hover:border-[#001B3D] hover:text-[#001B3D] transition-all cursor-pointer">
-                  <Upload className="w-6 h-6 mb-2" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">Upload</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-[#001B3D] mb-1">Pet Photo</h3>
-                  <p className="text-sm text-slate-400 font-medium">Upload a clear photo of the pet. Max 5MB.</p>
-                </div>
-              </div>
-
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Agent</label>
+                  <select className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                    <option>Tharindu</option>
+                    <option>Minuri</option>
+                    <option>Ravi</option>
+                    <option>Sahan</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Customer Name</label>
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Kamal Perera"
+                      className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
                   <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Pet Name</label>
+                  <div className="relative">
+                    <Dog className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Bruno"
+                      className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Status</label>
+                  <select className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                    <option>Pending</option>
+                    <option>On the Way</option>
+                    <option>Delivered</option>
+                    <option>Cancelled</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Estimated Time (ETA)</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. Bruno"
+                    placeholder="e.g. 15 mins"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Species / Breed</label>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. Dog (Golden Retriever)"
-                    className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Owner Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. Kamal Perera"
-                    className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Age</label>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. 3 Years"
-                    className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                  />
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Priority</label>
+                  <select className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                    <option>Standard</option>
+                    <option>Express</option>
+                    <option>Urgent (Medicine)</option>
+                  </select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Medical Notes (Optional)</label>
-                <textarea 
-                  rows={4}
-                  placeholder="Any allergies, previous surgeries or specific conditions..."
-                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none"
-                />
+                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Address</label>
+                <div className="relative">
+                  <MapPin className="absolute left-4 top-4 w-4 h-4 text-slate-400" />
+                  <textarea 
+                    rows={3}
+                    placeholder="Enter full delivery address..."
+                    className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none"
+                  />
+                </div>
               </div>
 
               <div className="flex gap-4 pt-6">
                 <button 
                   type="button"
-                  onClick={() => navigate("/admin-pet-profiles")}
+                  onClick={() => navigate("/admin-delivery")}
                   className="flex-1 bg-slate-50 text-slate-600 font-bold py-4 rounded-2xl hover:bg-slate-100 transition-all"
                 >
                   Cancel
@@ -166,7 +183,7 @@ export default function AdminAddPetPage() {
                   className="flex-[2] bg-[#001B3D] text-white font-bold py-4 rounded-2xl hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
                 >
                   <Save className="w-5 h-5" />
-                  Save Pet Profile
+                  Assign Delivery
                 </button>
               </div>
             </form>
@@ -178,11 +195,11 @@ export default function AdminAddPetPage() {
         isOpen={showSuccess}
         onClose={() => {
           setShowSuccess(false);
-          navigate("/admin-pet-profiles");
+          navigate("/admin-delivery");
         }}
         type="success"
-        title="Registration Successful"
-        message="The new pet profile has been registered successfully."
+        title="Delivery Assigned"
+        message="The new delivery has been assigned successfully."
       />
     </div>
   );

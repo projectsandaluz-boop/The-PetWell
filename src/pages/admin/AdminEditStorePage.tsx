@@ -15,12 +15,14 @@ import {
   LogOut, 
   ChevronLeft,
   Upload,
-  Save
+  Save,
+  Tag,
+  DollarSign
 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 import React, { useState } from "react";
-import AdminModal from "../components/AdminModal";
+import AdminModal from "../../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -32,7 +34,7 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   </button>
 );
 
-export default function AdminEditPetPage() {
+export default function AdminEditStorePage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [showSuccess, setShowSuccess] = useState(false);
@@ -56,9 +58,9 @@ export default function AdminEditPetPage() {
 
         <nav className="flex-1 mt-8">
           <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
-          <SidebarItem icon={PawPrint} label="Pet Profiles" active onClick={() => navigate("/admin-pet-profiles")} />
+          <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
-          <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
+          <SidebarItem icon={ShoppingBag} label="Store" active onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
           <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
@@ -81,14 +83,14 @@ export default function AdminEditPetPage() {
         <header className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-4">
             <button 
-              onClick={() => navigate("/admin-pet-profiles")}
+              onClick={() => navigate("/admin-store")}
               className="p-3 rounded-2xl bg-white text-slate-400 hover:text-[#001B3D] shadow-sm transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Edit Pet Profile</h1>
-              <p className="text-slate-500 font-medium">Update the details for pet ID: {id}</p>
+              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Edit Product</h1>
+              <p className="text-slate-500 font-medium">Update product details for ID: {id}</p>
             </div>
           </div>
         </header>
@@ -100,54 +102,78 @@ export default function AdminEditPetPage() {
               {/* Image Upload Section */}
               <div className="flex items-center gap-10">
                 <div className="w-32 h-32 rounded-[32px] bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 group hover:border-[#001B3D] hover:text-[#001B3D] transition-all cursor-pointer overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=200&h=200&auto=format&fit=crop" alt="Pet" className="w-full h-full object-cover" />
+                  <img src="https://picsum.photos/seed/food/200/200" alt="Product" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-[#001B3D] mb-1">Pet Photo</h3>
+                  <h3 className="text-lg font-bold text-[#001B3D] mb-1">Product Image</h3>
                   <p className="text-sm text-slate-400 font-medium">Click to change the photo. Max 5MB.</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Pet Name</label>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Product Name</label>
                   <input 
                     type="text" 
-                    defaultValue="Bruno"
+                    defaultValue="Premium Dog Food"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Species / Breed</label>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Category</label>
+                  <div className="relative">
+                    <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <select defaultValue="Food & Nutrition" className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                      <option>Food & Nutrition</option>
+                      <option>Toys & Entertainment</option>
+                      <option>Health & Grooming</option>
+                      <option>Accessories</option>
+                      <option>Medicine</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Price (rs.)</label>
+                  <div className="relative">
+                    <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input 
+                      type="number" 
+                      defaultValue="1500"
+                      className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Stock Quantity</label>
                   <input 
-                    type="text" 
-                    defaultValue="Dog (Golden Retriever)"
+                    type="number" 
+                    defaultValue="50"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Owner Name</label>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Brand</label>
                   <input 
                     type="text" 
-                    defaultValue="Kamal Perera"
+                    defaultValue="Pedigree"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Age</label>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Weight / Size</label>
                   <input 
                     type="text" 
-                    defaultValue="3 Years"
+                    defaultValue="2kg"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Medical Notes</label>
+                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Product Description</label>
                 <textarea 
                   rows={4}
-                  defaultValue="Allergic to certain types of dry food. Up to date with vaccinations."
+                  defaultValue="High-quality protein source for adult dogs. Supports healthy digestion and shiny coat."
                   className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none"
                 />
               </div>
@@ -155,7 +181,7 @@ export default function AdminEditPetPage() {
               <div className="flex gap-4 pt-6">
                 <button 
                   type="button"
-                  onClick={() => navigate("/admin-pet-profiles")}
+                  onClick={() => navigate("/admin-store")}
                   className="flex-1 bg-slate-50 text-slate-600 font-bold py-4 rounded-2xl hover:bg-slate-100 transition-all"
                 >
                   Cancel
@@ -165,7 +191,7 @@ export default function AdminEditPetPage() {
                   className="flex-[2] bg-[#001B3D] text-white font-bold py-4 rounded-2xl hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
                 >
                   <Save className="w-5 h-5" />
-                  Update Pet Profile
+                  Update Product
                 </button>
               </div>
             </form>
@@ -177,11 +203,11 @@ export default function AdminEditPetPage() {
         isOpen={showSuccess}
         onClose={() => {
           setShowSuccess(false);
-          navigate("/admin-pet-profiles");
+          navigate("/admin-store");
         }}
         type="success"
         title="Update Successful"
-        message="The pet profile has been updated successfully."
+        message="The product has been updated successfully."
       />
     </div>
   );

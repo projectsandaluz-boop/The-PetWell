@@ -19,13 +19,13 @@ import {
   MoreVertical,
   Edit2,
   Trash2,
-  MapPin,
+  CheckCircle,
   Clock
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 import { useState } from "react";
-import AdminModal from "../components/AdminModal";
+import AdminModal from "../../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -37,64 +37,79 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   </button>
 );
 
-const deliveryData = [
+const bookingsData = [
   {
-    id: "D-5542",
-    agent: "Tharindu",
-    customer: "Kamal",
+    id: "B-1023",
     pet: "Bruno",
-    status: "On the Way",
-    eta: "12 mins"
+    owner: "Kamal",
+    date: "2025-11-01",
+    status: "Confirmed"
   },
   {
-    id: "D-5543",
-    agent: "Minuri",
-    customer: "Nirosha",
+    id: "B-1024",
     pet: "Mimi",
-    status: "Delivered",
-    eta: "Completed"
+    owner: "Nirosha",
+    date: "2025-11-03",
+    status: "Pending"
   },
   {
-    id: "D-5544",
-    agent: "Ravi",
-    customer: "Sam",
-    pet: "Max",
-    status: "Cancelled",
-    eta: "-"
+    id: "B-1025",
+    pet: "Rex",
+    owner: "Saman",
+    date: "2025-11-05",
+    status: "Confirmed"
+  },
+  {
+    id: "B-1026",
+    pet: "Luna",
+    owner: "Priya",
+    date: "2025-11-07",
+    status: "Cancelled"
   }
 ];
 
-export default function AdminDeliveryPage() {
+export default function AdminBookingsPage() {
   const navigate = useNavigate();
-  const [deliveries, setDeliveries] = useState(deliveryData);
+  const [bookings, setBookings] = useState(bookingsData);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [deliveryToDelete, setDeliveryToDelete] = useState<string | null>(null);
+  const [bookingToDelete, setBookingToDelete] = useState<string | null>(null);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
+  const getStatusStyles = (status: string) => {
+    switch (status) {
+      case "Confirmed":
+        return "bg-emerald-50 text-emerald-600 border-emerald-100";
+      case "Pending":
+        return "bg-amber-50 text-amber-600 border-amber-100";
+      case "Cancelled":
+        return "bg-rose-50 text-rose-600 border-rose-100";
+      default:
+        return "bg-slate-50 text-slate-600 border-slate-100";
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "Confirmed":
+        return <CheckCircle className="w-3 h-3" />;
+      case "Pending":
+        return <Clock className="w-3 h-3" />;
+      default:
+        return null;
+    }
+  };
+
   const handleDeleteClick = (id: string) => {
-    setDeliveryToDelete(id);
+    setBookingToDelete(id);
     setShowDeleteConfirm(true);
   };
 
   const confirmDelete = () => {
-    if (deliveryToDelete) {
-      setDeliveries(deliveries.filter(d => d.id !== deliveryToDelete));
+    if (bookingToDelete) {
+      setBookings(bookings.filter(b => b.id !== bookingToDelete));
       setShowDeleteConfirm(false);
-      setDeliveryToDelete(null);
+      setBookingToDelete(null);
       setShowDeleteSuccess(true);
-    }
-  };
-
-  const getStatusStyles = (status: string) => {
-    switch (status) {
-      case "Delivered":
-        return "bg-[#4ADE80] text-white";
-      case "On the Way":
-        return "bg-[#FBBF24] text-white";
-      case "Cancelled":
-        return "bg-[#F87171] text-white";
-      default:
-        return "bg-slate-200 text-slate-600";
     }
   };
 
@@ -113,9 +128,9 @@ export default function AdminDeliveryPage() {
         <nav className="flex-1 mt-8">
           <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
           <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
-          <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
+          <SidebarItem icon={Calendar} label="Bookings" active onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
-          <SidebarItem icon={Truck} label="Delivery Tracking" active onClick={() => navigate("/admin-delivery")} />
+          <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
           <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
@@ -144,16 +159,16 @@ export default function AdminDeliveryPage() {
         {/* Header */}
         <header className="flex items-center justify-between mb-12">
           <div>
-            <h1 className="text-3xl font-extrabold text-[#001B3D] mb-2 tracking-tight">Delivery Tracking</h1>
-            <p className="text-slate-500 font-medium">Monitor real-time pet product deliveries.</p>
+            <h1 className="text-3xl font-extrabold text-[#001B3D] mb-2 tracking-tight">Bookings</h1>
+            <p className="text-slate-500 font-medium">Manage and track all pet service appointments.</p>
           </div>
           <div className="flex items-center gap-6">
             <button 
-              onClick={() => navigate("/admin-add-delivery")}
+              onClick={() => navigate("/admin-add-booking")}
               className="flex items-center gap-2 bg-[#001B3D] text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20"
             >
               <Plus className="w-5 h-5" />
-              New Delivery
+              New Booking
             </button>
             <div className="flex items-center gap-4 pl-6 border-l border-slate-200">
               <div className="text-right">
@@ -176,67 +191,66 @@ export default function AdminDeliveryPage() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input 
               className="bg-white border-none rounded-2xl pl-12 pr-6 py-3 text-sm font-medium w-96 shadow-sm focus:ring-2 focus:ring-[#001B3D]/10 transition-all" 
-              placeholder="Search by ID, agent or customer..." 
+              placeholder="Search bookings by ID, pet or owner..." 
             />
           </div>
           <div className="flex gap-3">
             <button className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-slate-600 font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
               <Filter className="w-4 h-4" />
-              Status
+              Filter
             </button>
           </div>
         </div>
 
-        {/* Delivery Table */}
+        {/* Bookings Table */}
         <div className="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-bottom border-slate-50">
-                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">ID</th>
-                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Agent</th>
-                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Customer</th>
+                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Booking ID</th>
                 <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Pet</th>
+                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Owner</th>
+                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Date</th>
                 <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
-                <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">ETA</th>
                 <th className="px-8 py-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {deliveries.map((delivery) => (
-                <tr key={delivery.id} className="group hover:bg-slate-50/50 transition-all">
+              {bookings.map((booking) => (
+                <tr key={booking.id} className="group hover:bg-slate-50/50 transition-all">
                   <td className="px-8 py-6">
-                    <span className="font-mono text-sm font-bold text-[#001B3D]">{delivery.id}</span>
+                    <span className="font-mono text-sm font-bold text-[#001B3D]">{booking.id}</span>
                   </td>
                   <td className="px-8 py-6">
-                    <span className="font-bold text-[#001B3D] text-sm">{delivery.agent}</span>
-                  </td>
-                  <td className="px-8 py-6">
-                    <span className="text-slate-600 font-medium text-sm">{delivery.customer}</span>
-                  </td>
-                  <td className="px-8 py-6">
-                    <span className="text-slate-600 font-medium text-sm">{delivery.pet}</span>
-                  </td>
-                  <td className="px-8 py-6">
-                    <div className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold ${getStatusStyles(delivery.status)}`}>
-                      {delivery.status}
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                        <PawPrint className="w-4 h-4 text-blue-600" />
+                      </div>
+                      <span className="font-bold text-[#001B3D] text-sm">{booking.pet}</span>
                     </div>
                   </td>
                   <td className="px-8 py-6">
-                    <div className="flex items-center gap-2">
-                      {delivery.eta !== "-" && delivery.eta !== "Completed" && <Clock className="w-3 h-3 text-slate-400" />}
-                      <span className="text-slate-500 font-medium text-sm">{delivery.eta}</span>
+                    <span className="text-slate-600 font-medium text-sm">{booking.owner}</span>
+                  </td>
+                  <td className="px-8 py-6">
+                    <span className="text-slate-500 font-medium text-sm">{booking.date}</span>
+                  </td>
+                  <td className="px-8 py-6">
+                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-bold uppercase tracking-wider ${getStatusStyles(booking.status)}`}>
+                      {getStatusIcon(booking.status)}
+                      {booking.status}
                     </div>
                   </td>
                   <td className="px-8 py-6">
                     <div className="flex items-center justify-end gap-2">
                       <button 
-                        onClick={() => navigate(`/admin-edit-delivery/${delivery.id}`)}
+                        onClick={() => navigate(`/admin-edit-booking/${booking.id}`)}
                         className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button 
-                        onClick={() => handleDeleteClick(delivery.id)}
+                        onClick={() => handleDeleteClick(booking.id)}
                         className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -250,6 +264,15 @@ export default function AdminDeliveryPage() {
               ))}
             </tbody>
           </table>
+          
+          {/* Pagination Placeholder */}
+          <div className="px-8 py-6 border-t border-slate-50 flex items-center justify-between bg-slate-50/30">
+            <p className="text-xs text-slate-400 font-medium">Showing {bookings.length} of 24 bookings</p>
+            <div className="flex gap-2">
+              <button className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all disabled:opacity-50">Previous</button>
+              <button className="px-4 py-2 rounded-xl bg-[#001B3D] text-white text-xs font-bold hover:bg-[#002b61] transition-all shadow-sm">Next</button>
+            </div>
+          </div>
         </div>
       </main>
 
@@ -258,8 +281,8 @@ export default function AdminDeliveryPage() {
         onClose={() => setShowDeleteConfirm(false)}
         onConfirm={confirmDelete}
         type="delete"
-        title="Delete Delivery"
-        message="Are you sure you want to delete this delivery record? This action cannot be undone."
+        title="Delete Booking"
+        message="Are you sure you want to delete this booking? This action cannot be undone."
       />
 
       <AdminModal 
@@ -267,7 +290,7 @@ export default function AdminDeliveryPage() {
         onClose={() => setShowDeleteSuccess(false)}
         type="success"
         title="Deleted Successfully"
-        message="The delivery record has been deleted successfully."
+        message="The booking has been deleted successfully."
       />
     </div>
   );

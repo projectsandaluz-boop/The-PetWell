@@ -9,21 +9,21 @@ import {
   EyeOff, 
   Lock, 
   Mail, 
+  User,
   ArrowRight,
   ChevronRight
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../../components/Logo";
 
-export default function OwnerLoginPage() {
+export default function OwnerSignupPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login
+    // Simulate signup
     navigate("/owner-dashboard");
   };
 
@@ -45,10 +45,10 @@ export default function OwnerLoginPage() {
               className="mt-20"
             >
               <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-8">
-                The Empathetic <br/> Guardian for your <br/> best friend.
+                Start your <br/> journey as a <br/> Pet Guardian.
               </h1>
               <p className="text-white/70 text-lg max-w-sm leading-relaxed">
-                Join a community of dedicated pet parents prioritizing health, happiness, and peace of mind through sophisticated digital care.
+                Join thousands of pet parents who trust PetWell for their companion's lifelong health and happiness.
               </p>
             </motion.div>
           </div>
@@ -62,18 +62,18 @@ export default function OwnerLoginPage() {
           >
             <div className="flex items-center gap-4 mb-4">
               <img 
-                src="https://picsum.photos/seed/sarah/100/100" 
-                alt="Sarah Jenkins" 
+                src="https://picsum.photos/seed/mark/100/100" 
+                alt="Mark Stevens" 
                 className="w-12 h-12 rounded-full border-2 border-white/20"
                 referrerPolicy="no-referrer"
               />
               <div>
-                <p className="text-white font-bold">Sarah Jenkins</p>
-                <p className="text-white/60 text-xs">Guardian to 'Mochi'</p>
+                <p className="text-white font-bold">Mark Stevens</p>
+                <p className="text-white/60 text-xs">Guardian to 'Luna'</p>
               </div>
             </div>
             <p className="text-white/90 italic text-sm leading-relaxed">
-              "PetWell changed how I track Mochi's health. It feels like having a vet's expertise right in my pocket."
+              "The onboarding was so simple. Within minutes, I had Luna's entire medical history organized and ready."
             </p>
           </motion.div>
 
@@ -82,48 +82,42 @@ export default function OwnerLoginPage() {
           <div className="absolute top-40 -right-20 w-48 h-48 bg-surface-tint/10 rounded-full blur-2xl" />
         </div>
 
-        {/* Right Side - Login Form */}
+        {/* Right Side - Signup Form */}
         <div className="lg:w-[55%] p-12 md:p-16 flex flex-col justify-center">
           <div className="max-w-md mx-auto w-full">
             
             {/* Toggle LogIn / SignUp */}
             <div className="flex bg-surface-container-low p-1 rounded-2xl mb-12 w-fit mx-auto lg:mx-0">
+              <Link 
+                to="/owner-login"
+                className="px-8 py-2.5 rounded-xl font-bold text-sm transition-all text-secondary"
+              >
+                Log In
+              </Link>
               <button 
                 className="px-8 py-2.5 rounded-xl font-bold text-sm transition-all bg-white shadow-sm text-primary"
               >
-                Log In
-              </button>
-              <Link 
-                to="/owner-signup"
-                className="px-8 py-2.5 rounded-xl font-bold text-sm transition-all text-secondary"
-              >
                 Sign Up
-              </Link>
-            </div>
-
-            <h2 className="text-3xl font-bold text-primary mb-2">Welcome Back</h2>
-            <p className="text-secondary mb-10">Access your pet's personalized health dashboard.</p>
-
-            {/* Social Login */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary">
-                <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
-                Google
-              </button>
-              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary">
-                <img src="https://www.apple.com/favicon.ico" alt="Apple" className="w-4 h-4" />
-                Apple ID
               </button>
             </div>
 
-            <div className="relative flex items-center justify-center mb-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-surface-container-high"></div>
+            <h2 className="text-3xl font-bold text-primary mb-2">Create Account</h2>
+            <p className="text-secondary mb-10">Begin your pet's sophisticated digital care journey.</p>
+
+            <form className="space-y-5" onSubmit={handleSignup}>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-secondary uppercase tracking-widest">Full Name</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
+                  <input 
+                    className="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-primary/20 transition-all text-primary font-medium" 
+                    placeholder="John Doe" 
+                    type="text"
+                    required
+                  />
+                </div>
               </div>
-              <span className="relative px-4 bg-white text-[10px] font-bold text-secondary uppercase tracking-widest">or email</span>
-            </div>
 
-            <form className="space-y-6" onSubmit={handleLogin}>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-secondary uppercase tracking-widest">Email Address</label>
                 <div className="relative">
@@ -138,10 +132,7 @@ export default function OwnerLoginPage() {
               </div>
 
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <label className="text-xs font-bold text-secondary uppercase tracking-widest">Password</label>
-                  <button type="button" className="text-xs font-bold text-primary hover:underline">Forgot?</button>
-                </div>
+                <label className="text-xs font-bold text-secondary uppercase tracking-widest">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                   <input 
@@ -160,19 +151,36 @@ export default function OwnerLoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <input type="checkbox" id="remember" className="w-5 h-5 rounded border-surface-container-high text-primary focus:ring-primary/20" />
-                <label htmlFor="remember" className="text-sm text-secondary font-medium">Keep Mochi's records logged in</label>
+              <div className="flex items-start gap-3 py-2">
+                <input type="checkbox" id="terms" className="mt-1 w-5 h-5 rounded border-surface-container-high text-primary focus:ring-primary/20" required />
+                <label htmlFor="terms" className="text-xs text-secondary font-medium leading-relaxed">
+                  I agree to the <button type="button" className="text-primary font-bold hover:underline">Terms of Service</button> and <button type="button" className="text-primary font-bold hover:underline">Privacy Policy</button>, including data processing for pet health insights.
+                </label>
               </div>
 
-              <button className="w-full bg-[#001B3D] text-white font-bold py-5 rounded-2xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
-                Enter Dashboard
+              <button className="w-full bg-[#001B3D] text-white font-bold py-5 rounded-2xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10 flex items-center justify-center gap-3">
+                Create Guardian Account <ArrowRight className="w-5 h-5" />
               </button>
             </form>
 
-            <p className="mt-10 text-center text-sm text-secondary">
-              New to PetWell? <Link to="/owner-signup" className="text-primary font-bold hover:underline">Create a Guardian Account</Link>
-            </p>
+            <div className="relative flex items-center justify-center my-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-surface-container-high"></div>
+              </div>
+              <span className="relative px-4 bg-white text-[10px] font-bold text-secondary uppercase tracking-widest">or join with</span>
+            </div>
+
+            {/* Social Signup */}
+            <div className="grid grid-cols-2 gap-4">
+              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary">
+                <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
+                Google
+              </button>
+              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary">
+                <img src="https://www.apple.com/favicon.ico" alt="Apple" className="w-4 h-4" />
+                Apple ID
+              </button>
+            </div>
           </div>
         </div>
       </div>

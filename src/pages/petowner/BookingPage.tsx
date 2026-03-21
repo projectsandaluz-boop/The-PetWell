@@ -14,8 +14,11 @@ import {
   Bath, 
   Check,
   Calendar as CalendarIcon,
-  Clock
+  Clock,
+  Moon,
+  Sun
 } from "lucide-react";
+import ThemeToggle from "../../components/ThemeToggle";
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -75,17 +78,17 @@ export default function BookingPage() {
 
   if (isConfirmed) {
     return (
-      <div className="min-h-screen bg-[#F0F4FF] flex items-center justify-center p-6">
+      <div className="min-h-screen bg-surface flex items-center justify-center p-6">
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="bg-white p-12 rounded-[3rem] shadow-2xl text-center max-w-md w-full flex flex-col items-center"
+          className="bg-surface p-12 rounded-[3rem] shadow-2xl text-center max-w-md w-full flex flex-col items-center border border-surface-container-high"
         >
           <div className="w-20 h-20 bg-[#22C55E] rounded-full flex items-center justify-center mb-8 shadow-lg shadow-emerald-100">
             <Check className="w-10 h-10 text-white stroke-[3px]" />
           </div>
-          <h2 className="text-3xl font-extrabold text-[#001B3D] mb-4">Booking Confirmed!</h2>
-          <p className="text-[#8E9299] font-medium text-lg mb-1">
+          <h2 className="text-3xl font-extrabold text-primary mb-4">Booking Confirmed!</h2>
+          <p className="text-secondary font-medium text-lg mb-1">
             {selectedService.name} at {selectedTime}
           </p>
           <p className="text-[#22C55E] font-bold text-lg mb-10">
@@ -94,7 +97,7 @@ export default function BookingPage() {
           
           <button 
             onClick={() => setIsConfirmed(false)}
-            className="bg-[#003366] text-white font-bold py-4 px-12 rounded-2xl hover:bg-[#002244] transition-all active:scale-95 shadow-lg shadow-blue-900/20"
+            className="bg-primary text-on-primary font-bold py-4 px-12 rounded-2xl hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-primary/20"
           >
             Book Another
           </button>
@@ -104,10 +107,10 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F0F4FF] flex flex-col">
+    <div className="min-h-screen bg-surface flex flex-col">
       
       {/* Header */}
-      <header className="bg-[#001B3D] text-white px-12 py-6 flex items-center justify-between sticky top-0 z-30">
+      <header className="bg-primary text-on-primary px-12 py-6 flex items-center justify-between sticky top-0 z-30">
         <button 
           onClick={() => navigate(-1)} 
           className="font-bold text-sm uppercase tracking-[0.2em] opacity-60 hover:opacity-100 transition-opacity"
@@ -115,7 +118,10 @@ export default function BookingPage() {
           BACK
         </button>
         <span className="text-3xl font-extrabold tracking-tighter text-white">PetWell</span>
-        <div className="text-sm font-bold text-white/60 uppercase tracking-[0.2em]">SARAH J.</div>
+        <div className="flex items-center gap-6">
+          <ThemeToggle />
+          <div className="text-sm font-bold text-white/60 uppercase tracking-[0.2em]">SARAH J.</div>
+        </div>
       </header>
 
       <main className="flex-1 py-16 px-6 max-w-5xl mx-auto w-full space-y-12 pb-32">
@@ -123,25 +129,25 @@ export default function BookingPage() {
         {/* Page Title & Timer */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <h1 className="text-5xl font-extrabold text-[#001B3D] tracking-tight">Book Appointment</h1>
-            <p className="text-[#8E9299] text-xl font-medium">Pick a service, slot & pay</p>
+            <h1 className="text-5xl font-extrabold text-primary tracking-tight">Book Appointment</h1>
+            <p className="text-secondary text-xl font-medium">Pick a service, slot & pay</p>
           </div>
-          <div className="bg-white px-6 py-4 rounded-3xl shadow-lg border border-surface-container-high flex items-center gap-4">
+          <div className="bg-surface px-6 py-4 rounded-3xl shadow-lg border border-surface-container-high flex items-center gap-4">
             <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center">
               <Clock className="w-5 h-5 text-red-500" />
             </div>
             <div>
               <p className="text-[10px] font-bold text-secondary uppercase tracking-widest">Session Expires In</p>
-              <p className="text-xl font-black text-[#001B3D] tabular-nums">{formatTime(timeLeft)}</p>
+              <p className="text-xl font-black text-primary tabular-nums">{formatTime(timeLeft)}</p>
             </div>
           </div>
         </div>
 
         {/* Select Date Section */}
-        <section className="bg-white p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-8">
+        <section className="bg-surface p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-8">
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-[#001B3D]">Select Date</h3>
-            <div className="flex items-center gap-2 text-[#8E9299]">
+            <h3 className="text-2xl font-bold text-primary">Select Date</h3>
+            <div className="flex items-center gap-2 text-secondary">
               <CalendarIcon className="w-5 h-5" />
               <span className="font-bold text-sm">March 2026</span>
             </div>
@@ -153,8 +159,8 @@ export default function BookingPage() {
                 onClick={() => setSelectedDate(d.full)}
                 className={`flex-shrink-0 w-24 py-6 rounded-[2rem] border-2 transition-all flex flex-col items-center gap-1 ${
                   selectedDate === d.full 
-                    ? 'border-[#001B3D] bg-[#001B3D] text-white shadow-lg shadow-blue-900/20' 
-                    : 'border-surface-container-high bg-white text-primary hover:border-[#001B3D]/20'
+                    ? 'border-primary bg-primary text-on-primary shadow-lg shadow-primary/20' 
+                    : 'border-surface-container-high bg-surface text-primary hover:border-primary/20'
                 }`}
               >
                 <span className={`text-xs font-bold uppercase tracking-widest ${selectedDate === d.full ? 'text-white/60' : 'text-secondary'}`}>{d.day}</span>
@@ -166,8 +172,8 @@ export default function BookingPage() {
         </section>
 
         {/* Select Service Card */}
-        <section className="bg-white p-12 rounded-[4rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-10">
-          <h3 className="text-2xl font-bold text-[#001B3D]">Select Service</h3>
+        <section className="bg-surface p-12 rounded-[4rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-10">
+          <h3 className="text-2xl font-bold text-primary">Select Service</h3>
           <div className="space-y-4">
             {services.map((service) => (
               <button
@@ -175,24 +181,24 @@ export default function BookingPage() {
                 onClick={() => setSelectedService(service)}
                 className={`w-full flex items-center justify-between p-6 rounded-3xl border-2 transition-all ${
                   selectedService.name === service.name 
-                    ? 'border-[#001B3D] bg-[#F0F4FF]' 
-                    : 'border-surface-container-high bg-white hover:border-[#001B3D]/20'
+                    ? 'border-primary bg-surface-container-low' 
+                    : 'border-surface-container-high bg-surface hover:border-primary/20'
                 }`}
               >
                 <div className="flex items-center gap-8">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${selectedService.name === service.name ? 'bg-white' : 'bg-surface-container-low'}`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${selectedService.name === service.name ? 'bg-surface' : 'bg-surface-container-low'}`}>
                     <service.icon className={`w-8 h-8 ${selectedService.name === service.name ? service.color : 'text-secondary'}`} />
                   </div>
-                  <span className={`font-bold text-xl ${selectedService.name === service.name ? 'text-[#001B3D]' : 'text-primary'}`}>
+                  <span className={`font-bold text-xl ${selectedService.name === service.name ? 'text-primary' : 'text-primary'}`}>
                     {service.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-6">
-                  <span className={`font-bold text-xl ${selectedService.name === service.name ? 'text-[#001B3D]' : 'text-secondary'}`}>
+                  <span className={`font-bold text-xl ${selectedService.name === service.name ? 'text-primary' : 'text-secondary'}`}>
                     Rs. {service.price}
                   </span>
                   {selectedService.name === service.name && (
-                    <div className="w-7 h-7 bg-[#001B3D] rounded-full flex items-center justify-center">
+                    <div className="w-7 h-7 bg-primary rounded-full flex items-center justify-center">
                       <Check className="w-4 h-4 text-white stroke-[3px]" />
                     </div>
                   )}
@@ -204,8 +210,8 @@ export default function BookingPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Available Time Slots */}
-          <section className="bg-white p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high">
-            <h3 className="text-xl font-bold text-[#001B3D] mb-8">
+          <section className="bg-surface p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high">
+            <h3 className="text-xl font-bold text-primary mb-8">
               Available Time Slots
             </h3>
             <div className="grid grid-cols-3 gap-4">
@@ -216,10 +222,10 @@ export default function BookingPage() {
                   onClick={() => setSelectedTime(slot.time)}
                   className={`py-5 px-4 rounded-[1.5rem] font-bold text-base transition-all border-2 ${
                     selectedTime === slot.time 
-                      ? 'bg-[#001B3D] text-white border-[#001B3D] shadow-lg shadow-blue-900/20' 
+                      ? 'bg-primary text-on-primary border-primary shadow-lg shadow-primary/20' 
                       : slot.disabled 
-                        ? 'bg-[#F5F5F5] text-[#8E9299]/40 border-transparent cursor-not-allowed' 
-                        : 'bg-white text-[#001B3D] border-[#E5E7EB] hover:border-[#001B3D]/20'
+                        ? 'bg-surface-container-low text-secondary/40 border-transparent cursor-not-allowed' 
+                        : 'bg-surface text-primary border-surface-container-high hover:border-primary/20'
                   }`}
                 >
                   {slot.time}
@@ -229,8 +235,8 @@ export default function BookingPage() {
           </section>
 
           {/* Payment Method */}
-          <section className="bg-white p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-8">
-            <h3 className="text-xl font-bold text-[#001B3D]">
+          <section className="bg-surface p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-8">
+            <h3 className="text-xl font-bold text-primary">
               Payment Method
             </h3>
             
@@ -239,27 +245,27 @@ export default function BookingPage() {
                 onClick={() => setPaymentMethod('card')}
                 className={`w-full flex items-center gap-6 p-5 rounded-2xl border-2 transition-all ${
                   paymentMethod === 'card' 
-                    ? 'border-[#001B3D] bg-[#F0F4FF]' 
-                    : 'border-surface-container-high bg-white hover:border-[#001B3D]/20'
+                    ? 'border-primary bg-surface-container-low' 
+                    : 'border-surface-container-high bg-surface hover:border-primary/20'
                 }`}
               >
-                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#001B3D] bg-[#001B3D]' : 'border-surface-container-high'}`}>
+                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'card' ? 'border-primary bg-primary' : 'border-surface-container-high'}`}>
                   {paymentMethod === 'card' && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
                 </div>
-                <span className="font-bold text-base text-[#001B3D]">Credit / Debit Card</span>
+                <span className="font-bold text-base text-primary">Credit / Debit Card</span>
               </button>
               <button
                 onClick={() => setPaymentMethod('cash')}
                 className={`w-full flex items-center gap-6 p-5 rounded-2xl border-2 transition-all ${
                   paymentMethod === 'cash' 
-                    ? 'border-[#001B3D] bg-[#F0F4FF]' 
-                    : 'border-surface-container-high bg-white hover:border-[#001B3D]/20'
+                    ? 'border-primary bg-surface-container-low' 
+                    : 'border-surface-container-high bg-surface hover:border-primary/20'
                 }`}
               >
-                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'cash' ? 'border-[#001B3D] bg-[#001B3D]' : 'border-surface-container-high'}`}>
+                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'cash' ? 'border-primary bg-primary' : 'border-surface-container-high'}`}>
                   {paymentMethod === 'cash' && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
                 </div>
-                <span className="font-bold text-base text-[#001B3D]">Cash on Arrival</span>
+                <span className="font-bold text-base text-primary">Cash on Arrival</span>
               </button>
             </div>
 
@@ -274,7 +280,7 @@ export default function BookingPage() {
                   <input 
                     type="text" 
                     placeholder="0000 0000 0000 0000" 
-                    className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-[#001B3D]/20 transition-all"
+                    className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-primary/20 transition-all"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-6">
@@ -283,7 +289,7 @@ export default function BookingPage() {
                     <input 
                       type="text" 
                       placeholder="MM / YY" 
-                      className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-[#001B3D]/20 transition-all"
+                      className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
                   <div className="space-y-3">
@@ -291,7 +297,7 @@ export default function BookingPage() {
                     <input 
                       type="text" 
                       placeholder="000" 
-                      className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-[#001B3D]/20 transition-all"
+                      className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
                 </div>
@@ -303,14 +309,14 @@ export default function BookingPage() {
         {/* Action Button */}
         <button 
           onClick={handleConfirm}
-          className="w-full bg-[#001B3D] text-white font-bold py-6 rounded-[2rem] hover:opacity-95 transition-all active:scale-[0.99] shadow-2xl shadow-blue-900/20 text-xl"
+          className="w-full bg-primary text-on-primary font-bold py-6 rounded-[2rem] hover:opacity-95 transition-all active:scale-[0.99] shadow-2xl shadow-primary/20 text-xl"
         >
           Pay & Confirm
         </button>
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-surface-container-high py-12 px-6">
+      <footer className="bg-surface border-t border-surface-container-high py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col items-center md:items-start">
             <span className="text-2xl font-extrabold tracking-tighter text-primary mb-2">PetWell</span>

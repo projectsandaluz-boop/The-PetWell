@@ -22,6 +22,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
+import ThemeToggle from "../components/ThemeToggle";
 
 // --- Sub-components ---
 
@@ -35,7 +36,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-surface-container-high">
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
         <Link to="/">
           <Logo />
@@ -49,6 +50,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           <Link to="/get-started" className="hidden sm:block font-headline text-sm font-semibold tracking-tight text-secondary px-4 py-2 hover:bg-surface-container-low rounded-lg transition-all">Log In</Link>
           <Link to="/get-started" className="bg-primary text-on-primary font-headline text-sm font-semibold tracking-tight px-6 py-2.5 rounded-lg hover:opacity-90 transition-all active:scale-95">Sign Up</Link>
           
@@ -62,7 +64,7 @@ const Navbar = () => {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden bg-white border-t border-surface-container-high p-6 flex flex-col gap-4"
+          className="md:hidden bg-surface border-t border-surface-container-high p-6 flex flex-col gap-4"
         >
           <a className="font-headline font-semibold text-primary" href="#" onClick={() => setIsMenuOpen(false)}>Home</a>
           <a className="font-headline font-semibold text-secondary" href="#about" onClick={() => setIsMenuOpen(false)}>About Us</a>
@@ -279,7 +281,7 @@ const Mission = () => (
 const Contact = () => (
   <section className="py-24 bg-surface-container-low" id="contact">
     <div className="max-w-7xl mx-auto px-6">
-      <div className="bg-white rounded-[3rem] shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+      <div className="bg-surface rounded-[3rem] shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-surface-container-high">
         <div className="p-12 md:p-16">
           <h2 className="font-headline text-4xl font-bold text-primary mb-4">Let's Connect</h2>
           <p className="text-secondary mb-10">Our concierge team is available to assist you with any inquiries regarding your pet's wellness plan.</p>
@@ -342,7 +344,7 @@ const Contact = () => (
             </div>
           </div>
           
-          <div className="z-10 bg-white/10 backdrop-blur-md p-6 rounded-2xl mt-12">
+          <div className="z-10 bg-primary-fixed/10 backdrop-blur-md p-6 rounded-2xl mt-12">
             <p className="text-sm italic opacity-90">"The fastest response time I've ever experienced in vet care. Truly guardians."</p>
             <p className="text-xs font-bold mt-2">— Sarah K., Cat Guardian</p>
           </div>

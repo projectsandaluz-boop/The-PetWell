@@ -16,6 +16,7 @@ import {
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import ThemeToggle from "../../components/ThemeToggle";
 
 export default function OwnerSignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,11 +29,14 @@ export default function OwnerSignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4FF] flex items-center justify-center p-6">
-      <div className="max-w-6xl w-full bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px]">
+    <div className="min-h-screen bg-surface flex items-center justify-center p-6 relative">
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
+      <div className="max-w-6xl w-full bg-surface rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px] border border-surface-container-high">
         
         {/* Left Side - Branding & Testimonial */}
-        <div className="lg:w-[45%] bg-[#001B3D] p-12 flex flex-col justify-between relative overflow-hidden">
+        <div className="lg:w-[45%] bg-primary p-12 flex flex-col justify-between relative overflow-hidden">
           <div className="z-10">
             <Link to="/">
               <Logo variant="light" />
@@ -158,7 +162,7 @@ export default function OwnerSignupPage() {
                 </label>
               </div>
 
-              <button className="w-full bg-[#001B3D] text-white font-bold py-5 rounded-2xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10 flex items-center justify-center gap-3">
+              <button className="w-full bg-primary text-on-primary font-bold py-5 rounded-2xl hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10 flex items-center justify-center gap-3">
                 Create Guardian Account <ArrowRight className="w-5 h-5" />
               </button>
             </form>
@@ -167,7 +171,7 @@ export default function OwnerSignupPage() {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-surface-container-high"></div>
               </div>
-              <span className="relative px-4 bg-white text-[10px] font-bold text-secondary uppercase tracking-widest">or join with</span>
+              <span className="relative px-4 bg-surface text-[10px] font-bold text-secondary uppercase tracking-widest">or join with</span>
             </div>
 
             {/* Social Signup */}

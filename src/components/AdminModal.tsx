@@ -9,7 +9,7 @@ import { X, CheckCircle2, AlertCircle, Trash2 } from "lucide-react";
 interface AdminModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "success" | "delete" | "error";
+  type: "success" | "delete" | "error" | "logout";
   title: string;
   message: string;
   onConfirm?: () => void;
@@ -56,6 +56,11 @@ export default function AdminModal({
                     <Trash2 className="w-10 h-10" />
                   </div>
                 )}
+                {type === "logout" && (
+                  <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                    <LogOut className="w-10 h-10" />
+                  </div>
+                )}
                 {type === "error" && (
                   <div className="w-20 h-20 rounded-full bg-amber-50 flex items-center justify-center text-amber-500">
                     <AlertCircle className="w-10 h-10" />
@@ -67,7 +72,7 @@ export default function AdminModal({
               <p className="text-slate-500 font-medium mb-10">{message}</p>
 
               <div className="flex gap-4">
-                {type === "delete" ? (
+                {(type === "delete" || type === "logout") ? (
                   <>
                     <button
                       onClick={onClose}
@@ -77,7 +82,7 @@ export default function AdminModal({
                     </button>
                     <button
                       onClick={onConfirm}
-                      className="flex-1 bg-rose-600 text-white font-bold py-4 rounded-2xl hover:bg-rose-700 transition-all shadow-lg shadow-rose-900/20"
+                      className={`flex-1 text-white font-bold py-4 rounded-2xl transition-all shadow-lg ${type === 'logout' ? 'bg-blue-600 hover:bg-blue-700 shadow-blue-900/20' : 'bg-rose-600 hover:bg-rose-700 shadow-rose-900/20'}`}
                     >
                       {confirmText}
                     </button>

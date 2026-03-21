@@ -5,34 +5,16 @@
 
 import { motion } from "motion/react";
 import { 
-  Home,
-  PawPrint, 
-  Calendar, 
-  ShoppingBag,
-  Truck,
-  MessageSquare,
-  Settings, 
-  LogOut, 
   ChevronLeft,
   Save,
   Clock,
   User,
   Dog
 } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Logo from "../../components/Logo";
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useState } from "react";
 import AdminModal from "../../components/AdminModal";
-
-const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
-  <button 
-    onClick={onClick}
-    className={`w-full flex items-center gap-4 px-6 py-4 transition-all ${active ? 'bg-white/10 text-white border-r-4 border-white' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
-  >
-    <Icon className="w-5 h-5" />
-    <span className="font-bold text-sm tracking-tight">{label}</span>
-  </button>
-);
+import AdminSidebar from "../../components/AdminSidebar";
 
 export default function AdminEditBookingPage() {
   const navigate = useNavigate();
@@ -48,33 +30,7 @@ export default function AdminEditBookingPage() {
     <div className="min-h-screen bg-[#F8FAFC] flex">
       
       {/* Sidebar */}
-      <aside className="w-72 bg-[#001B3D] flex flex-col fixed h-full z-20">
-        <div className="p-8">
-          <Link to="/">
-            <Logo variant="light" />
-          </Link>
-          <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mt-2">Empathetic Guardian</p>
-        </div>
-
-        <nav className="flex-1 mt-8">
-          <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
-          <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
-          <SidebarItem icon={Calendar} label="Bookings" active onClick={() => navigate("/admin-bookings")} />
-          <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
-          <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
-        </nav>
-
-        <div className="mt-auto">
-          <div className="px-6 py-4">
-            <div className="h-px bg-white/10 w-full mb-4" />
-            <div className="space-y-1">
-              <SidebarItem icon={Settings} label="Settings" />
-              <SidebarItem icon={LogOut} label="Logout" onClick={() => navigate("/")} />
-            </div>
-          </div>
-        </div>
-      </aside>
+      <AdminSidebar activePage="bookings" />
 
       {/* Main Content */}
       <main className="flex-1 ml-72 p-10">

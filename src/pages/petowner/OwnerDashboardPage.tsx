@@ -29,6 +29,9 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import OwnerSidebar from "../../components/OwnerSidebar";
+import { useState } from "react";
+import AdminModal from "../../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -75,37 +78,7 @@ export default function OwnerDashboardPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex">
       
-      {/* Sidebar */}
-      <aside className="w-72 bg-[#001B3D] flex flex-col fixed h-full z-20">
-        <div className="p-8">
-          <Link to="/">
-            <Logo variant="light" />
-          </Link>
-          <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mt-2">Empathetic Guardian</p>
-        </div>
-
-        <nav className="flex-1 mt-8">
-          <SidebarItem icon={LayoutDashboard} label="Dashboard" active />
-          <SidebarItem icon={Users} label="Pet Profiles" onClick={() => navigate("/owner-pet-profiles")} />
-          <SidebarItem icon={FileText} label="Health Records" />
-          <SidebarItem icon={Calendar} label="Appointments" onClick={() => navigate("/owner-booking")} />
-          <SidebarItem icon={MessageSquare} label="Messages" />
-        </nav>
-
-        <div className="p-6 space-y-4">
-          <button 
-            onClick={() => navigate("/owner-booking")}
-            className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
-          >
-            <PlusCircle className="w-5 h-5" />
-            Book Appointment
-          </button>
-          <div className="pt-6 border-t border-white/10 space-y-2">
-            <SidebarItem icon={Settings} label="Settings" />
-            <SidebarItem icon={LogOut} label="Logout" onClick={() => navigate("/")} />
-          </div>
-        </div>
-      </aside>
+      <OwnerSidebar activePage="dashboard" />
 
       {/* Main Content */}
       <main className="flex-1 ml-72 p-10">

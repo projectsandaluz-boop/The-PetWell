@@ -72,19 +72,19 @@ export default function PetDetailsPage() {
       <main className="flex-1 py-16 px-6 max-w-7xl mx-auto w-full space-y-12 pb-32">
         
         {/* Profile Hero */}
-        <section className="bg-white p-12 rounded-[4rem] shadow-xl shadow-blue-900/5 border border-surface-container-high flex flex-col lg:flex-row gap-12 items-center lg:items-start">
-          <div className="w-64 h-64 rounded-[3rem] overflow-hidden bg-surface-container-low shadow-2xl shadow-blue-900/10">
+        <section className="bg-white p-8 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high flex flex-col lg:flex-row gap-8 items-center lg:items-start">
+          <div className="w-48 h-48 rounded-[2rem] overflow-hidden bg-surface-container-low shadow-2xl shadow-blue-900/10">
             <img src={pet.image} alt={pet.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
-          <div className="flex-1 text-center lg:text-left space-y-8">
+          <div className="flex-1 text-center lg:text-left space-y-6">
             <div className="space-y-2">
               <div className="flex items-center justify-center lg:justify-start gap-4">
-                <h1 className="text-6xl font-black text-[#001B3D] tracking-tighter">{pet.name}</h1>
-                <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${pet.status === 'Healthy' ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-amber-50 text-amber-600 border-amber-200'}`}>
+                <h1 className="text-4xl font-black text-[#001B3D] tracking-tighter">{pet.name}</h1>
+                <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${pet.status === 'Healthy' ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-amber-50 text-amber-600 border-amber-200'}`}>
                   {pet.status}
                 </div>
               </div>
-              <p className="text-xl text-[#8E9299] font-bold uppercase tracking-[0.2em]">{pet.breed} • {pet.age}</p>
+              <p className="text-sm text-[#8E9299] font-bold uppercase tracking-[0.2em]">{pet.breed} • {pet.age}</p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -94,79 +94,79 @@ export default function PetDetailsPage() {
                 { label: 'ID Number', value: 'PW-8291', icon: ShieldCheck, color: 'text-emerald-500', bg: 'bg-emerald-50' },
                 { label: 'Last Checkup', value: '12 Oct', icon: Clock, color: 'text-amber-500', bg: 'bg-amber-50' }
               ].map((stat, i) => (
-                <div key={i} className="bg-[#F0F4FF] p-6 rounded-3xl space-y-2 border border-[#001B3D]/5">
-                  <div className={`w-10 h-10 rounded-xl ${stat.bg} flex items-center justify-center`}>
-                    <stat.icon className={`w-5 h-5 ${stat.color}`} />
+                <div key={i} className="bg-[#F0F4FF] p-4 rounded-2xl space-y-2 border border-[#001B3D]/5">
+                  <div className={`w-8 h-8 rounded-lg ${stat.bg} flex items-center justify-center`}>
+                    <stat.icon className={`w-4 h-4 ${stat.color}`} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold text-[#8E9299] uppercase tracking-widest">{stat.label}</p>
-                    <p className="text-lg font-black text-[#001B3D]">{stat.value}</p>
+                    <p className="text-[9px] font-bold text-[#8E9299] uppercase tracking-widest">{stat.label}</p>
+                    <p className="text-base font-black text-[#001B3D]">{stat.value}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-black text-[#001B3D] flex items-center gap-2">
-                <Info className="w-5 h-5" />
+            <div className="space-y-2">
+              <h3 className="text-lg font-black text-[#001B3D] flex items-center gap-2">
+                <Info className="w-4 h-4" />
                 About {pet.name}
               </h3>
-              <p className="text-[#8E9299] font-medium leading-relaxed text-lg max-w-2xl">
+              <p className="text-[#8E9299] font-medium leading-relaxed text-sm max-w-2xl">
                 {pet.about}
               </p>
             </div>
           </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Health Records */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-3xl font-black text-[#001B3D] tracking-tight">Health Records</h3>
-              <button className="bg-[#001B3D] text-white font-black px-6 py-3 rounded-2xl flex items-center gap-2 hover:opacity-95 transition-all text-sm">
+              <h3 className="text-2xl font-black text-[#001B3D] tracking-tight">Health Records</h3>
+              <button className="bg-[#001B3D] text-white font-black px-4 py-2 rounded-xl flex items-center gap-2 hover:opacity-95 transition-all text-xs">
                 <Plus className="w-4 h-4" />
                 Add Record
               </button>
             </div>
             <div className="space-y-4">
               {pet.healthRecords.map((record, i) => (
-                <div key={i} className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-surface-container-high flex items-center gap-8 group hover:shadow-md transition-all">
-                  <div className="w-16 h-16 rounded-2xl bg-[#F0F4FF] flex items-center justify-center text-[#001B3D]">
-                    <FileText className="w-8 h-8" />
+                <div key={i} className="bg-white p-6 rounded-[2rem] shadow-sm border border-surface-container-high flex items-center gap-6 group hover:shadow-md transition-all">
+                  <div className="w-12 h-12 rounded-xl bg-[#F0F4FF] flex items-center justify-center text-[#001B3D]">
+                    <FileText className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <h4 className="text-xl font-black text-[#001B3D]">{record.type}</h4>
-                      <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full uppercase tracking-widest">{record.status}</span>
+                      <h4 className="text-lg font-black text-[#001B3D]">{record.type}</h4>
+                      <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-widest">{record.status}</span>
                     </div>
-                    <p className="text-sm text-[#8E9299] font-bold uppercase tracking-widest">{record.date} • {record.doctor}</p>
+                    <p className="text-xs text-[#8E9299] font-bold uppercase tracking-widest">{record.date} • {record.doctor}</p>
                   </div>
-                  <ChevronRight className="w-6 h-6 text-secondary opacity-0 group-hover:opacity-100 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-secondary opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
               ))}
             </div>
           </div>
 
           {/* Sidebar Info */}
-          <div className="space-y-12">
+          <div className="space-y-8">
             {/* Upcoming Appointments */}
-            <div className="space-y-8">
-              <h3 className="text-2xl font-black text-[#001B3D] tracking-tight">Upcoming</h3>
+            <div className="space-y-6">
+              <h3 className="text-xl font-black text-[#001B3D] tracking-tight">Upcoming</h3>
               {pet.upcomingAppointments.map((app, i) => (
-                <div key={i} className="bg-[#001B3D] p-8 rounded-[3rem] text-white space-y-6 shadow-2xl shadow-blue-900/20">
+                <div key={i} className="bg-[#001B3D] p-6 rounded-[2rem] text-white space-y-5 shadow-2xl shadow-blue-900/20">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-                      <Calendar className="w-6 h-6" />
+                    <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                      <Calendar className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-bold text-white/60 uppercase tracking-widest">{app.date}</span>
+                    <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">{app.date}</span>
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold mb-1">{app.type}</h4>
-                    <p className="text-sm text-white/60 font-medium">{app.location} • {app.time}</p>
+                    <h4 className="text-lg font-bold mb-1">{app.type}</h4>
+                    <p className="text-xs text-white/60 font-medium">{app.location} • {app.time}</p>
                   </div>
                   <button 
                     onClick={() => navigate("/owner-booking")}
-                    className="w-full bg-white text-[#001B3D] font-black py-4 rounded-2xl hover:bg-white/90 transition-all active:scale-95"
+                    className="w-full bg-white text-[#001B3D] font-black py-3 rounded-xl text-sm hover:bg-white/90 transition-all active:scale-95"
                   >
                     Reschedule
                   </button>
@@ -175,19 +175,19 @@ export default function PetDetailsPage() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white p-8 rounded-[3rem] shadow-sm border border-surface-container-high space-y-6">
-              <h3 className="text-xl font-black text-[#001B3D]">Quick Actions</h3>
-              <div className="space-y-3">
+            <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-surface-container-high space-y-4">
+              <h3 className="text-lg font-black text-[#001B3D]">Quick Actions</h3>
+              <div className="space-y-2">
                 {[
                   { icon: Stethoscope, label: 'Book Vet Checkup', color: 'bg-rose-100', text: 'text-rose-600' },
                   { icon: Activity, label: 'Update Weight', color: 'bg-indigo-100', text: 'text-indigo-600' },
                   { icon: FileText, label: 'Export Medical History', color: 'bg-slate-100', text: 'text-slate-600' }
                 ].map((action, i) => (
-                  <button key={i} className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-[#F0F4FF] transition-all group">
-                    <div className={`w-10 h-10 rounded-xl ${action.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <action.icon className={`w-5 h-5 ${action.text}`} />
+                  <button key={i} className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[#F0F4FF] transition-all group">
+                    <div className={`w-8 h-8 rounded-lg ${action.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <action.icon className={`w-4 h-4 ${action.text}`} />
                     </div>
-                    <span className="text-sm font-bold text-[#001B3D]">{action.label}</span>
+                    <span className="text-xs font-bold text-[#001B3D]">{action.label}</span>
                   </button>
                 ))}
               </div>

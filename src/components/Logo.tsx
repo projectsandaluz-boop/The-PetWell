@@ -11,12 +11,14 @@ interface LogoProps {
   showText?: boolean;
 }
 
-export default function Logo({ className = "", variant = "dark", showText = true }: LogoProps) {
+export default function Logo({ className = "", variant, showText = true }: LogoProps) {
   const logoUrl = "https://storage.googleapis.com/static-assets-aistudio/p4tiehkdg53wfoczctkraf/input_file_0.png";
+  
+  const isLight = variant === 'light';
   
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <div className={`w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden ${variant === 'light' ? 'bg-white' : 'bg-primary'}`}>
+      <div className={`w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden ${isLight ? 'bg-white' : 'bg-primary'}`}>
         <img 
           src={logoUrl} 
           alt="PetWell Logo" 
@@ -25,7 +27,7 @@ export default function Logo({ className = "", variant = "dark", showText = true
         />
       </div>
       {showText && (
-        <span className={`text-2xl font-extrabold tracking-tighter ${variant === 'light' ? 'text-white' : 'text-primary'}`}>
+        <span className={`text-2xl font-extrabold tracking-tighter ${isLight ? 'text-white' : 'text-primary'}`}>
           PetWell
         </span>
       )}

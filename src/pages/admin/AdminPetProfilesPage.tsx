@@ -68,6 +68,14 @@ const petProfilesData = [
     owner: "Priya Fernando",
     age: "2 Years",
     image: "https://images.unsplash.com/photo-1513245543132-31f507417b26?q=80&w=200&h=200&auto=format&fit=crop"
+  },
+  {
+    id: 5,
+    name: "Buddy",
+    type: "Dog (Labrador)",
+    owner: "Kamal Perera",
+    age: "2 Years",
+    image: "https://picsum.photos/seed/labrador/400/400"
   }
 ];
 

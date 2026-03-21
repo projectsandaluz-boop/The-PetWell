@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function OwnerLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,11 +34,8 @@ export default function OwnerLoginPage() {
         {/* Left Side - Branding & Testimonial */}
         <div className="lg:w-[45%] bg-[#001B3D] p-12 flex flex-col justify-between relative overflow-hidden">
           <div className="z-10">
-            <Link to="/" className="text-2xl font-extrabold tracking-tighter text-white flex items-center gap-2">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <div className="w-4 h-4 bg-[#001B3D] rounded-sm" />
-              </div>
-              PetWell
+            <Link to="/">
+              <Logo variant="light" />
             </Link>
             
             <motion.div 

@@ -28,6 +28,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -77,11 +78,8 @@ export default function OwnerDashboardPage() {
       {/* Sidebar */}
       <aside className="w-72 bg-[#001B3D] flex flex-col fixed h-full z-20">
         <div className="p-8">
-          <Link to="/" className="text-2xl font-extrabold tracking-tighter text-white flex items-center gap-2">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <div className="w-4 h-4 bg-[#001B3D] rounded-sm" />
-            </div>
-            PetWell
+          <Link to="/">
+            <Logo variant="light" />
           </Link>
           <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mt-2">Empathetic Guardian</p>
         </div>
@@ -263,7 +261,7 @@ export default function OwnerDashboardPage() {
       {/* Footer */}
       <footer className="fixed bottom-0 left-72 right-0 bg-white border-t border-surface-container-high py-6 px-10 flex justify-between items-center z-10">
         <div className="flex flex-col">
-          <span className="font-headline font-bold text-sm text-primary mb-1">PetWell</span>
+          <Logo className="mb-1" />
           <p className="text-[10px] text-secondary">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
         </div>
         <div className="flex gap-8 text-[10px] font-bold text-secondary uppercase tracking-widest">

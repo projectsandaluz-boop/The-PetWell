@@ -13,20 +13,20 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import Logo from "../components/Logo";
+
 const Navbar = () => {
   return (
     <nav className="w-full bg-transparent">
       <div className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <Link to="/" className="text-2xl font-extrabold tracking-tighter text-primary">PetWell</Link>
+        <Link to="/">
+          <Logo />
+        </Link>
         
         <div className="hidden md:flex items-center gap-12">
           <a className="font-headline text-sm font-semibold tracking-tight text-secondary hover:text-primary transition-colors" href="#">About Us</a>
           <a className="font-headline text-sm font-semibold tracking-tight text-secondary hover:text-primary transition-colors" href="#">Our Mission</a>
         </div>
-
-        <button className="font-headline text-sm font-semibold tracking-tight text-primary px-4 py-2 hover:bg-surface-container-low rounded-lg transition-all">
-          Log In
-        </button>
       </div>
     </nav>
   );
@@ -78,7 +78,7 @@ const Footer = () => (
   <footer className="w-full py-12 px-8 mt-auto">
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
       <div className="flex flex-col items-center md:items-start">
-        <span className="font-headline font-bold text-xl text-primary mb-2">PetWell</span>
+        <Logo className="mb-2" />
         <p className="text-xs text-secondary">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
       </div>
       

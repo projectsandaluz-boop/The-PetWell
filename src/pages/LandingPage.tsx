@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 // --- Sub-components ---
 
@@ -36,7 +37,9 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-        <div className="text-2xl font-extrabold tracking-tighter text-primary">PetWell</div>
+        <Link to="/">
+          <Logo />
+        </Link>
         
         <div className="hidden md:flex items-center gap-8">
           <a className="font-headline text-sm font-semibold tracking-tight text-primary border-b-2 border-primary pb-1" href="#">Home</a>
@@ -46,8 +49,8 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="hidden sm:block font-headline text-sm font-semibold tracking-tight text-secondary px-4 py-2 hover:bg-surface-container-low rounded-lg transition-all">Log In</button>
-          <button className="bg-primary text-on-primary font-headline text-sm font-semibold tracking-tight px-6 py-2.5 rounded-lg hover:opacity-90 transition-all active:scale-95">Sign Up</button>
+          <Link to="/get-started" className="hidden sm:block font-headline text-sm font-semibold tracking-tight text-secondary px-4 py-2 hover:bg-surface-container-low rounded-lg transition-all">Log In</Link>
+          <Link to="/get-started" className="bg-primary text-on-primary font-headline text-sm font-semibold tracking-tight px-6 py-2.5 rounded-lg hover:opacity-90 transition-all active:scale-95">Sign Up</Link>
           
           <button className="md:hidden text-primary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
@@ -354,7 +357,7 @@ const Footer = () => (
   <footer className="w-full bg-surface-container-high">
     <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-7xl mx-auto">
       <div className="flex flex-col mb-8 md:mb-0">
-        <span className="font-headline font-bold text-xl text-primary mb-2">PetWell</span>
+        <Logo className="mb-2" />
         <p className="text-xs text-secondary">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
       </div>
       

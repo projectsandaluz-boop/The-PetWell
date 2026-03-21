@@ -86,14 +86,17 @@ export default function OwnerDashboardPage() {
 
         <nav className="flex-1 mt-8">
           <SidebarItem icon={LayoutDashboard} label="Dashboard" active />
-          <SidebarItem icon={Users} label="Pet Profiles" />
+          <SidebarItem icon={Users} label="Pet Profiles" onClick={() => navigate("/owner-pet-profiles")} />
           <SidebarItem icon={FileText} label="Health Records" />
-          <SidebarItem icon={Calendar} label="Appointments" />
+          <SidebarItem icon={Calendar} label="Appointments" onClick={() => navigate("/owner-booking")} />
           <SidebarItem icon={MessageSquare} label="Messages" />
         </nav>
 
         <div className="p-6 space-y-4">
-          <button className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-white/20 transition-all">
+          <button 
+            onClick={() => navigate("/owner-booking")}
+            className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
+          >
             <PlusCircle className="w-5 h-5" />
             Book Appointment
           </button>
@@ -135,8 +138,18 @@ export default function OwnerDashboardPage() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 max-w-4xl">
-          <QuickAction icon={Stethoscope} label="Book Appointment" color="bg-sky-100" />
-          <QuickAction icon={PlusCircle} label="Add Pet Profile" color="bg-amber-100" />
+          <button onClick={() => navigate("/owner-booking")} className="flex flex-col items-center gap-4 group">
+            <div className={`w-16 h-16 rounded-2xl bg-sky-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all group-active:scale-95`}>
+              <Stethoscope className="w-8 h-8 text-primary" />
+            </div>
+            <span className="text-xs font-bold text-primary tracking-tight">Book Appointment</span>
+          </button>
+          <button onClick={() => navigate("/add-pet")} className="flex flex-col items-center gap-4 group">
+            <div className={`w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all group-active:scale-95`}>
+              <PlusCircle className="w-8 h-8 text-primary" />
+            </div>
+            <span className="text-xs font-bold text-primary tracking-tight">Add Pet Profile</span>
+          </button>
           <QuickAction icon={Pill} label="Record Medication" color="bg-indigo-100" />
           <QuickAction icon={ShoppingBag} label="Order Supplies" color="bg-slate-100" />
         </div>
@@ -147,7 +160,7 @@ export default function OwnerDashboardPage() {
           <div className="lg:col-span-2 space-y-8">
             <div className="flex items-center justify-between">
               <h3 className="text-2xl font-bold text-primary">Your Guardians</h3>
-              <button className="text-sm font-bold text-primary hover:underline">View All</button>
+              <button onClick={() => navigate("/owner-pet-profiles")} className="text-sm font-bold text-primary hover:underline">View All</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <PetCard 

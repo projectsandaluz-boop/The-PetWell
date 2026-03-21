@@ -5,26 +5,25 @@
 
 import { motion } from "motion/react";
 import { 
-  LayoutDashboard, 
-  Users, 
-  FileText, 
+  Home,
+  PawPrint, 
   Calendar, 
-  MessageSquare, 
-  Package, 
-  BarChart3, 
-  Plus, 
+  ShoppingBag,
+  Truck,
+  MessageSquare,
   Settings, 
   LogOut, 
+  ArrowLeft,
   Bell, 
   Search, 
   Filter,
   ChevronRight,
-  PawPrint,
   Clock,
   TrendingUp,
   DollarSign,
   UserCheck,
-  ShieldCheck
+  ShieldCheck,
+  Plus
 } from "lucide-react";
 import { 
   AreaChart, 
@@ -90,23 +89,29 @@ export default function AdminDashboardPage() {
         </div>
 
         <nav className="flex-1 mt-8">
-          <SidebarItem icon={LayoutDashboard} label="Dashboard" active />
-          <SidebarItem icon={Users} label="Pet Profiles" />
-          <SidebarItem icon={FileText} label="Health Records" />
-          <SidebarItem icon={Calendar} label="Appointments" />
-          <SidebarItem icon={MessageSquare} label="Messages" />
-          <SidebarItem icon={Package} label="Inventory" />
-          <SidebarItem icon={BarChart3} label="Reports" />
+          <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
+          <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
+          <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
+          <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
+          <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
+          <SidebarItem icon={MessageSquare} label="Feedback" />
         </nav>
 
-        <div className="p-6 space-y-4">
-          <button className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-white/20 transition-all">
-            <Plus className="w-5 h-5" />
-            Book Appointment
-          </button>
-          <div className="pt-6 border-t border-white/10 space-y-2">
-            <SidebarItem icon={Settings} label="Settings" />
-            <SidebarItem icon={LogOut} label="Logout" onClick={() => navigate("/")} />
+        <div className="mt-auto">
+          <div className="px-6 py-4">
+            <div className="h-px bg-white/10 w-full mb-4" />
+            <div className="space-y-1">
+              <SidebarItem icon={Settings} label="Settings" />
+              <SidebarItem icon={LogOut} label="Logout" onClick={() => navigate("/")} />
+            </div>
+          </div>
+          <div className="px-6 pb-6">
+            <button 
+              onClick={() => navigate(-1)}
+              className="w-full bg-white/5 text-white/40 font-bold py-2 px-4 rounded-xl text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all"
+            >
+              back to previous
+            </button>
           </div>
         </div>
       </aside>

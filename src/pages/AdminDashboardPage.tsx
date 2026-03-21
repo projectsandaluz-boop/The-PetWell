@@ -23,7 +23,9 @@ import {
   DollarSign,
   UserCheck,
   ShieldCheck,
-  Plus
+  Plus,
+  Edit2,
+  Trash2
 } from "lucide-react";
 import { 
   AreaChart, 
@@ -36,6 +38,8 @@ import {
 } from 'recharts';
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
+import { useState } from "react";
+import AdminModal from "../components/AdminModal";
 
 const data = [
   { name: 'Mon', activity: 400 },
@@ -73,8 +77,32 @@ const StatCard = ({ title, value, change, icon: Icon, color }: any) => (
   </div>
 );
 
+const registrationsData = [
+  { id: 1, name: 'Michael Adams', email: 'm.adams@email.com', pet: 'Bella (Husky)', loc: 'San Francisco, CA', date: 'Oct 14, 2024', status: 'Active' },
+  { id: 2, name: 'Sophia Lee', email: 'slee_pet@provider.com', pet: 'Felix (Main Coon)', loc: 'Palo Alto, CA', date: 'Oct 12, 2024', status: 'Active' },
+  { id: 3, name: 'Robert Jonson', email: 'robert.j@workmail.com', pet: 'Duke (Boxer)', loc: 'Oakland, CA', date: 'Oct 11, 2024', status: 'Pending Verify' }
+];
+
 export default function AdminDashboardPage() {
   const navigate = useNavigate();
+  const [registrations, setRegistrations] = useState(registrationsData);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<number | null>(null);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+
+  const handleDeleteClick = (id: number) => {
+    setUserToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (userToDelete) {
+      setRegistrations(registrations.filter(r => r.id !== userToDelete));
+      setShowDeleteConfirm(false);
+      setUserToDelete(null);
+      setShowDeleteSuccess(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex">
@@ -89,12 +117,12 @@ export default function AdminDashboardPage() {
         </div>
 
         <nav className="flex-1 mt-8">
-          <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
+          <SidebarItem icon={Home} label="Dashboard" active onClick={() => navigate("/admin-dashboard")} />
           <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" />
+          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
         <div className="mt-auto">
@@ -117,7 +145,7 @@ export default function AdminDashboardPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-72 p-10">
+      <main className="flex-1 ml-72 p-10 pb-32">
         
         {/* Header */}
         <header className="flex items-center justify-between mb-12">
@@ -246,15 +274,12 @@ export default function AdminDashboardPage() {
                 <th className="pb-4 text-[10px] font-bold text-secondary uppercase tracking-widest">Location</th>
                 <th className="pb-4 text-[10px] font-bold text-secondary uppercase tracking-widest">Joined Date</th>
                 <th className="pb-4 text-[10px] font-bold text-secondary uppercase tracking-widest">Status</th>
+                <th className="pb-4 text-[10px] font-bold text-secondary uppercase tracking-widest text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-surface-container-high">
-              {[
-                { name: 'Michael Adams', email: 'm.adams@email.com', pet: 'Bella (Husky)', loc: 'San Francisco, CA', date: 'Oct 14, 2024', status: 'Active' },
-                { name: 'Sophia Lee', email: 'slee_pet@provider.com', pet: 'Felix (Main Coon)', loc: 'Palo Alto, CA', date: 'Oct 12, 2024', status: 'Active' },
-                { name: 'Robert Jonson', email: 'robert.j@workmail.com', pet: 'Duke (Boxer)', loc: 'Oakland, CA', date: 'Oct 11, 2024', status: 'Pending Verify' }
-              ].map((row, i) => (
-                <tr key={i} className="group hover:bg-surface-container-low transition-all">
+              {registrations.map((row) => (
+                <tr key={row.id} className="group hover:bg-surface-container-low transition-all">
                   <td className="py-6">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-primary font-bold text-xs">
@@ -276,6 +301,22 @@ export default function AdminDashboardPage() {
                       {row.status}
                     </span>
                   </td>
+                  <td className="py-6">
+                    <div className="flex items-center justify-end gap-2">
+                      <button 
+                        onClick={() => navigate(`/admin-edit-user/${row.id}`)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteClick(row.id)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -296,6 +337,23 @@ export default function AdminDashboardPage() {
           <button className="hover:text-primary transition-colors">Accessibility</button>
         </div>
       </footer>
+
+      <AdminModal 
+        isOpen={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={confirmDelete}
+        type="delete"
+        title="Delete User"
+        message="Are you sure you want to delete this user account? This action cannot be undone."
+      />
+
+      <AdminModal 
+        isOpen={showDeleteSuccess}
+        onClose={() => setShowDeleteSuccess(false)}
+        type="success"
+        title="Deleted Successfully"
+        message="The user account has been deleted successfully."
+      />
     </div>
   );
 }

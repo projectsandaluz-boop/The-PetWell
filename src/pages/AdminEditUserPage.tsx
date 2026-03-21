@@ -16,12 +16,12 @@ import {
   ChevronLeft,
   Save,
   User,
-  Dog,
-  MapPin
+  Mail,
+  MapPin,
+  Shield
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Logo from "../components/Logo";
-
 import React, { useState } from "react";
 import AdminModal from "../components/AdminModal";
 
@@ -35,11 +35,12 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   </button>
 );
 
-export default function AdminAddDeliveryPage() {
+export default function AdminEditUserPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuccess(true);
   };
@@ -57,11 +58,11 @@ export default function AdminAddDeliveryPage() {
         </div>
 
         <nav className="flex-1 mt-8">
-          <SidebarItem icon={Home} label="Dashboard" onClick={() => navigate("/admin-dashboard")} />
+          <SidebarItem icon={Home} label="Dashboard" active onClick={() => navigate("/admin-dashboard")} />
           <SidebarItem icon={PawPrint} label="Pet Profiles" onClick={() => navigate("/admin-pet-profiles")} />
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
-          <SidebarItem icon={Truck} label="Delivery Tracking" active onClick={() => navigate("/admin-delivery")} />
+          <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
           <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
@@ -83,97 +84,93 @@ export default function AdminAddDeliveryPage() {
         <header className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-4">
             <button 
-              onClick={() => navigate("/admin-delivery")}
+              onClick={() => navigate("/admin-dashboard")}
               className="p-3 rounded-2xl bg-white text-slate-400 hover:text-[#001B3D] shadow-sm transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">New Delivery</h1>
-              <p className="text-slate-500 font-medium">Assign a new delivery agent to a customer order.</p>
+              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Edit User</h1>
+              <p className="text-slate-500 font-medium">Update account details for user ID: {id}</p>
             </div>
           </div>
         </header>
 
         <div className="max-w-4xl">
           <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 p-12">
-            <form onSubmit={handleSubmit} className="space-y-10">
+            <form onSubmit={handleUpdate} className="space-y-10">
               
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Agent</label>
-                  <select className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
-                    <option>Tharindu</option>
-                    <option>Minuri</option>
-                    <option>Ravi</option>
-                    <option>Sahan</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Customer Name</label>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input 
                       type="text" 
-                      placeholder="e.g. Kamal Perera"
+                      defaultValue="Michael Adams"
                       className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Pet Name</label>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
                   <div className="relative">
-                    <Dog className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input 
+                      type="email" 
+                      defaultValue="m.adams@email.com"
+                      className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Primary Pet</label>
+                  <div className="relative">
+                    <PawPrint className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input 
                       type="text" 
-                      placeholder="e.g. Bruno"
+                      defaultValue="Bella (Husky)"
                       className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Status</label>
-                  <select className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
-                    <option>Pending</option>
-                    <option>On the Way</option>
-                    <option>Delivered</option>
-                    <option>Cancelled</option>
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Account Status</label>
+                  <select defaultValue="Active" className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                    <option>Active</option>
+                    <option>Pending Verify</option>
+                    <option>Suspended</option>
+                    <option>Inactive</option>
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Estimated Time (ETA)</label>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. 15 mins"
-                    className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                  />
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Location</label>
+                  <div className="relative">
+                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input 
+                      type="text" 
+                      defaultValue="San Francisco, CA"
+                      className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Priority</label>
-                  <select className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
-                    <option>Standard</option>
-                    <option>Express</option>
-                    <option>Urgent (Medicine)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Delivery Address</label>
-                <div className="relative">
-                  <MapPin className="absolute left-4 top-4 w-4 h-4 text-slate-400" />
-                  <textarea 
-                    rows={3}
-                    placeholder="Enter full delivery address..."
-                    className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none"
-                  />
+                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Role</label>
+                  <div className="relative">
+                    <Shield className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <select defaultValue="Pet Owner" className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                      <option>Pet Owner</option>
+                      <option>Admin</option>
+                      <option>Staff</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
               <div className="flex gap-4 pt-6">
                 <button 
                   type="button"
-                  onClick={() => navigate("/admin-delivery")}
+                  onClick={() => navigate("/admin-dashboard")}
                   className="flex-1 bg-slate-50 text-slate-600 font-bold py-4 rounded-2xl hover:bg-slate-100 transition-all"
                 >
                   Cancel
@@ -183,7 +180,7 @@ export default function AdminAddDeliveryPage() {
                   className="flex-[2] bg-[#001B3D] text-white font-bold py-4 rounded-2xl hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
                 >
                   <Save className="w-5 h-5" />
-                  Assign Delivery
+                  Update User
                 </button>
               </div>
             </form>
@@ -195,11 +192,11 @@ export default function AdminAddDeliveryPage() {
         isOpen={showSuccess}
         onClose={() => {
           setShowSuccess(false);
-          navigate("/admin-delivery");
+          navigate("/admin-dashboard");
         }}
         type="success"
-        title="Delivery Assigned"
-        message="The new delivery has been assigned successfully."
+        title="Update Successful"
+        message="The user account has been updated successfully."
       />
     </div>
   );

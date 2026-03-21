@@ -4,6 +4,7 @@
  */
 
 import { motion } from "motion/react";
+import { useState } from "react";
 import { 
   Home,
   PawPrint, 
@@ -17,10 +18,13 @@ import {
   Search, 
   Filter,
   ChevronRight,
-  Plus
+  Plus,
+  Edit2,
+  Trash2
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
+import AdminModal from "../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -51,26 +55,30 @@ const ProductCard = ({ image, title, subtitle, price }: any) => (
   </div>
 );
 
-const products = [
+const productsData = [
   {
+    id: 1,
     image: "https://m.media-amazon.com/images/I/71-08N-vP-L._SL1500_.jpg",
     title: "Dog Food",
     subtitle: "Premium Blend",
     price: "1000"
   },
   {
+    id: 2,
     image: "https://m.media-amazon.com/images/I/61K7Y8v69rL._SL1500_.jpg",
     title: "Cat Toy",
     subtitle: "Interactive Mouse",
     price: "1200"
   },
   {
+    id: 3,
     image: "https://m.media-amazon.com/images/I/61-89z-m9DL._SL1500_.jpg",
     title: "Pet Shampoo",
     subtitle: "Organic Aloe",
     price: "850"
   },
   {
+    id: 4,
     image: "https://m.media-amazon.com/images/I/71-08N-vP-L._SL1500_.jpg",
     title: "Puppy Nutrition",
     subtitle: "Drools Special",
@@ -80,6 +88,24 @@ const products = [
 
 export default function AdminStorePage() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState(productsData);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<number | null>(null);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+
+  const handleDeleteClick = (id: number) => {
+    setProductToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (productToDelete) {
+      setProducts(products.filter(p => p.id !== productToDelete));
+      setShowDeleteConfirm(false);
+      setProductToDelete(null);
+      setShowDeleteSuccess(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex">
@@ -99,7 +125,7 @@ export default function AdminStorePage() {
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" active />
           <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" />
+          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
         <div className="mt-auto">
@@ -175,11 +201,63 @@ export default function AdminStorePage() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
+          {products.map((product) => (
+            <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden group cursor-pointer hover:shadow-md transition-all relative">
+              <div className="aspect-square bg-slate-50 relative overflow-hidden">
+                <img 
+                  src={product.image} 
+                  alt={product.title} 
+                  className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/admin-edit-store/${product.id}`);
+                    }}
+                    className="p-2 bg-white rounded-xl shadow-lg text-slate-400 hover:text-[#001B3D] transition-all"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteClick(product.id);
+                    }}
+                    className="p-2 bg-white rounded-xl shadow-lg text-slate-400 hover:text-rose-600 transition-all"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-[#001B3D] mb-1">{product.title}</h3>
+                <p className="text-xs text-slate-400 font-medium">
+                  {product.subtitle} — <span className="text-slate-500">rs.{product.price}</span>
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </main>
+
+      <AdminModal 
+        isOpen={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={confirmDelete}
+        type="delete"
+        title="Delete Product"
+        message="Are you sure you want to delete this product? This action cannot be undone."
+      />
+
+      <AdminModal 
+        isOpen={showDeleteSuccess}
+        onClose={() => setShowDeleteSuccess(false)}
+        type="success"
+        title="Deleted Successfully"
+        message="The product has been deleted successfully."
+      />
     </div>
   );
 }

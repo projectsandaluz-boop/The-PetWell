@@ -24,6 +24,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import { useState } from "react";
+import AdminModal from "../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -73,6 +74,23 @@ const petProfilesData = [
 export default function AdminPetProfilesPage() {
   const navigate = useNavigate();
   const [pets, setPets] = useState(petProfilesData);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [petToDelete, setPetToDelete] = useState<number | null>(null);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+
+  const handleDeleteClick = (id: number) => {
+    setPetToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (petToDelete) {
+      setPets(pets.filter(p => p.id !== petToDelete));
+      setShowDeleteConfirm(false);
+      setPetToDelete(null);
+      setShowDeleteSuccess(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex">
@@ -92,7 +110,7 @@ export default function AdminPetProfilesPage() {
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" />
+          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
         <div className="mt-auto">
@@ -203,10 +221,16 @@ export default function AdminPetProfilesPage() {
                   </td>
                   <td className="px-8 py-6">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all">
+                      <button 
+                        onClick={() => navigate(`/admin-edit-pet/${pet.id}`)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all"
+                      >
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all">
+                      <button 
+                        onClick={() => handleDeleteClick(pet.id)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                       <button className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all">
@@ -220,6 +244,23 @@ export default function AdminPetProfilesPage() {
           </table>
         </div>
       </main>
+
+      <AdminModal 
+        isOpen={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={confirmDelete}
+        type="delete"
+        title="Delete Pet Profile"
+        message="Are you sure you want to delete this pet profile? This action cannot be undone."
+      />
+
+      <AdminModal 
+        isOpen={showDeleteSuccess}
+        onClose={() => setShowDeleteSuccess(false)}
+        type="success"
+        title="Deleted Successfully"
+        message="The pet profile has been deleted successfully."
+      />
     </div>
   );
 }

@@ -19,9 +19,8 @@ import {
   Tag,
   DollarSign
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Logo from "../components/Logo";
-
 import React, { useState } from "react";
 import AdminModal from "../components/AdminModal";
 
@@ -35,11 +34,12 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   </button>
 );
 
-export default function AdminAddStorePage() {
+export default function AdminEditStorePage() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuccess(true);
   };
@@ -89,25 +89,24 @@ export default function AdminAddStorePage() {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Add Product</h1>
-              <p className="text-slate-500 font-medium">Add a new item to your clinic's store.</p>
+              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Edit Product</h1>
+              <p className="text-slate-500 font-medium">Update product details for ID: {id}</p>
             </div>
           </div>
         </header>
 
         <div className="max-w-4xl">
           <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 p-12">
-            <form onSubmit={handleSubmit} className="space-y-10">
+            <form onSubmit={handleUpdate} className="space-y-10">
               
               {/* Image Upload Section */}
               <div className="flex items-center gap-10">
-                <div className="w-32 h-32 rounded-[32px] bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 group hover:border-[#001B3D] hover:text-[#001B3D] transition-all cursor-pointer">
-                  <Upload className="w-6 h-6 mb-2" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">Upload</span>
+                <div className="w-32 h-32 rounded-[32px] bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 group hover:border-[#001B3D] hover:text-[#001B3D] transition-all cursor-pointer overflow-hidden">
+                  <img src="https://picsum.photos/seed/food/200/200" alt="Product" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#001B3D] mb-1">Product Image</h3>
-                  <p className="text-sm text-slate-400 font-medium">Upload a clear photo of the product. Max 5MB.</p>
+                  <p className="text-sm text-slate-400 font-medium">Click to change the photo. Max 5MB.</p>
                 </div>
               </div>
 
@@ -116,7 +115,7 @@ export default function AdminAddStorePage() {
                   <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Product Name</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. Premium Dog Food"
+                    defaultValue="Premium Dog Food"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
@@ -124,7 +123,7 @@ export default function AdminAddStorePage() {
                   <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Category</label>
                   <div className="relative">
                     <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                    <select className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
+                    <select defaultValue="Food & Nutrition" className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all appearance-none cursor-pointer">
                       <option>Food & Nutrition</option>
                       <option>Toys & Entertainment</option>
                       <option>Health & Grooming</option>
@@ -139,7 +138,7 @@ export default function AdminAddStorePage() {
                     <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input 
                       type="number" 
-                      placeholder="e.g. 1500"
+                      defaultValue="1500"
                       className="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                     />
                   </div>
@@ -148,7 +147,7 @@ export default function AdminAddStorePage() {
                   <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Stock Quantity</label>
                   <input 
                     type="number" 
-                    placeholder="e.g. 50"
+                    defaultValue="50"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
@@ -156,7 +155,7 @@ export default function AdminAddStorePage() {
                   <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Brand</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. Pedigree"
+                    defaultValue="Pedigree"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
@@ -164,7 +163,7 @@ export default function AdminAddStorePage() {
                   <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Weight / Size</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. 2kg or Medium"
+                    defaultValue="2kg"
                     className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
                   />
                 </div>
@@ -174,7 +173,7 @@ export default function AdminAddStorePage() {
                 <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Product Description</label>
                 <textarea 
                   rows={4}
-                  placeholder="Describe the product features, benefits and ingredients..."
+                  defaultValue="High-quality protein source for adult dogs. Supports healthy digestion and shiny coat."
                   className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none"
                 />
               </div>
@@ -192,7 +191,7 @@ export default function AdminAddStorePage() {
                   className="flex-[2] bg-[#001B3D] text-white font-bold py-4 rounded-2xl hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
                 >
                   <Save className="w-5 h-5" />
-                  Save Product
+                  Update Product
                 </button>
               </div>
             </form>
@@ -207,8 +206,8 @@ export default function AdminAddStorePage() {
           navigate("/admin-store");
         }}
         type="success"
-        title="Product Added"
-        message="The new product has been added to the store successfully."
+        title="Update Successful"
+        message="The product has been updated successfully."
       />
     </div>
   );

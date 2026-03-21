@@ -22,6 +22,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 
+import React, { useState } from "react";
+import AdminModal from "../components/AdminModal";
+
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
     onClick={onClick}
@@ -34,6 +37,12 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
 
 export default function AdminAddBookingPage() {
   const navigate = useNavigate();
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowSuccess(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex">
@@ -53,7 +62,7 @@ export default function AdminAddBookingPage() {
           <SidebarItem icon={Calendar} label="Bookings" active onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" />
+          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
         <div className="mt-auto">
@@ -88,7 +97,7 @@ export default function AdminAddBookingPage() {
 
         <div className="max-w-4xl">
           <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 p-12">
-            <form className="space-y-10">
+            <form onSubmit={handleSubmit} className="space-y-10">
               
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
@@ -182,6 +191,17 @@ export default function AdminAddBookingPage() {
           </div>
         </div>
       </main>
+
+      <AdminModal 
+        isOpen={showSuccess}
+        onClose={() => {
+          setShowSuccess(false);
+          navigate("/admin-bookings");
+        }}
+        type="success"
+        title="Booking Successful"
+        message="The new appointment has been scheduled successfully."
+      />
     </div>
   );
 }

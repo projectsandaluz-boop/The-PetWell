@@ -25,6 +25,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import { useState } from "react";
+import AdminModal from "../components/AdminModal";
 
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
@@ -66,6 +67,23 @@ const deliveryData = [
 export default function AdminDeliveryPage() {
   const navigate = useNavigate();
   const [deliveries, setDeliveries] = useState(deliveryData);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deliveryToDelete, setDeliveryToDelete] = useState<string | null>(null);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+
+  const handleDeleteClick = (id: string) => {
+    setDeliveryToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (deliveryToDelete) {
+      setDeliveries(deliveries.filter(d => d.id !== deliveryToDelete));
+      setShowDeleteConfirm(false);
+      setDeliveryToDelete(null);
+      setShowDeleteSuccess(true);
+    }
+  };
 
   const getStatusStyles = (status: string) => {
     switch (status) {
@@ -98,7 +116,7 @@ export default function AdminDeliveryPage() {
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" active onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" />
+          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
         <div className="mt-auto">
@@ -211,10 +229,16 @@ export default function AdminDeliveryPage() {
                   </td>
                   <td className="px-8 py-6">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all">
+                      <button 
+                        onClick={() => navigate(`/admin-edit-delivery/${delivery.id}`)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all"
+                      >
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all">
+                      <button 
+                        onClick={() => handleDeleteClick(delivery.id)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                       <button className="p-2 rounded-xl text-slate-400 hover:text-[#001B3D] hover:bg-white transition-all">
@@ -228,6 +252,23 @@ export default function AdminDeliveryPage() {
           </table>
         </div>
       </main>
+
+      <AdminModal 
+        isOpen={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={confirmDelete}
+        type="delete"
+        title="Delete Delivery"
+        message="Are you sure you want to delete this delivery record? This action cannot be undone."
+      />
+
+      <AdminModal 
+        isOpen={showDeleteSuccess}
+        onClose={() => setShowDeleteSuccess(false)}
+        type="success"
+        title="Deleted Successfully"
+        message="The delivery record has been deleted successfully."
+      />
     </div>
   );
 }

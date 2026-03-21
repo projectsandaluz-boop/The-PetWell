@@ -20,6 +20,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 
+import React, { useState } from "react";
+import AdminModal from "../components/AdminModal";
+
 const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
   <button 
     onClick={onClick}
@@ -32,6 +35,12 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: any) => (
 
 export default function AdminAddPetPage() {
   const navigate = useNavigate();
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowSuccess(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex">
@@ -51,7 +60,7 @@ export default function AdminAddPetPage() {
           <SidebarItem icon={Calendar} label="Bookings" onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" onClick={() => navigate("/admin-delivery")} />
-          <SidebarItem icon={MessageSquare} label="Feedback" />
+          <SidebarItem icon={MessageSquare} label="Feedback" onClick={() => navigate("/admin-feedback")} />
         </nav>
 
         <div className="mt-auto">
@@ -86,7 +95,7 @@ export default function AdminAddPetPage() {
 
         <div className="max-w-4xl">
           <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 p-12">
-            <form className="space-y-10">
+            <form onSubmit={handleSubmit} className="space-y-10">
               
               {/* Image Upload Section */}
               <div className="flex items-center gap-10">
@@ -164,6 +173,17 @@ export default function AdminAddPetPage() {
           </div>
         </div>
       </main>
+
+      <AdminModal 
+        isOpen={showSuccess}
+        onClose={() => {
+          setShowSuccess(false);
+          navigate("/admin-pet-profiles");
+        }}
+        type="success"
+        title="Registration Successful"
+        message="The new pet profile has been registered successfully."
+      />
     </div>
   );
 }

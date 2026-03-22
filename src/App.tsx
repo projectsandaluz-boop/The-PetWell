@@ -34,6 +34,7 @@ import PetDetailsPage from "./pages/petowner/PetDetailsPage";
 import OwnerDeliveryPage from "./pages/petowner/OwnerDeliveryPage";
 import OwnerStorePage from "./pages/petowner/OwnerStorePage";
 import OwnerAppointmentsPage from "./pages/petowner/OwnerAppointmentsPage";
+import OwnerProfilePage from "./pages/petowner/OwnerProfilePage";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import GlobalFooter from "./components/GlobalFooter";
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="/owner-delivery" element={<OwnerDeliveryPage />} />
           <Route path="/owner-store" element={<OwnerStorePage />} />
           <Route path="/owner-appointments" element={<OwnerAppointmentsPage />} />
+          <Route path="/owner-profile" element={<OwnerProfilePage />} />
           <Route path="/add-pet" element={<AddPetPage />} />
           <Route path="/pet-details/:id" element={<PetDetailsPage />} />
         </Routes>

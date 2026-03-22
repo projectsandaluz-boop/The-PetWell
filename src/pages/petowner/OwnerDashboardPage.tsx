@@ -99,12 +99,15 @@ export default function OwnerDashboardPage() {
               <Bell className="w-7 h-7 group-hover:scale-110 transition-transform" />
               <div className="absolute top-4 right-4 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm" />
             </button>
-            <div className="flex items-center gap-5 pl-8 border-l border-slate-200">
+            <button 
+              onClick={() => navigate("/owner-profile")}
+              className="flex items-center gap-5 pl-8 border-l border-slate-200 group hover:opacity-80 transition-all"
+            >
               <div className="text-right">
-                <p className="font-black text-[#001B3D] text-base">Sarah Jenkins</p>
+                <p className="font-black text-[#001B3D] text-base group-hover:text-blue-600 transition-colors">Sarah Jenkins</p>
                 <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Pet Guardian</p>
               </div>
-              <div className="w-14 h-14 rounded-[24px] overflow-hidden border-2 border-white shadow-lg ring-4 ring-[#001B3D]/5">
+              <div className="w-14 h-14 rounded-[24px] overflow-hidden border-2 border-white shadow-lg ring-4 ring-[#001B3D]/5 group-hover:ring-blue-600/20 transition-all">
                 <img 
                   src="https://picsum.photos/seed/sarah/200/200" 
                   alt="Profile" 
@@ -112,7 +115,7 @@ export default function OwnerDashboardPage() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-            </div>
+            </button>
           </div>
         </header>
 

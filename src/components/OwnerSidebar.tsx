@@ -6,6 +6,7 @@
 import { 
   LayoutDashboard, 
   Users, 
+  User,
   FileText, 
   Calendar, 
   MessageSquare, 
@@ -68,6 +69,7 @@ export default function OwnerSidebar({ activePage }: OwnerSidebarProps) {
               Book Appointment
             </button>
             <div className="pt-6 border-t border-white/10 space-y-2">
+              <SidebarItem icon={User} label="Profile" active={activePage === 'profile'} onClick={() => navigate("/owner-profile")} />
               <SidebarItem icon={Settings} label="Settings" />
               <SidebarItem icon={LogOut} label="Logout" onClick={() => setShowLogoutConfirm(true)} />
             </div>

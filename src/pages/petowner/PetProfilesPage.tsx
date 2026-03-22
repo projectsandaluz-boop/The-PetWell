@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import OwnerSidebar from "../../components/OwnerSidebar";
 
 const PetCard = ({ name, breed, age, owner, status, tags, image, onClick }: any) => (
   <button 
@@ -90,34 +91,36 @@ export default function PetProfilesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F0F4FF] flex flex-col">
-      {/* Header */}
-      <header className="bg-[#001B3D] text-white px-12 py-8 flex items-center justify-between sticky top-0 z-30">
-        <div className="flex items-center gap-8">
-          <button 
-            onClick={() => navigate("/owner-dashboard")} 
-            className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
-          >
-            <ArrowLeft className="w-6 h-6" />
-          </button>
-          <Logo variant="light" />
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="relative hidden md:block">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input 
-              type="text" 
-              placeholder="Search guardians..." 
-              className="bg-white/10 border-none rounded-2xl pl-12 pr-6 py-3 text-sm font-bold placeholder:text-white/40 focus:ring-2 focus:ring-white/20 w-64 transition-all"
-            />
+    <div className="min-h-screen bg-[#F0F4FF] flex">
+      <OwnerSidebar activePage="pets" />
+      
+      <div className="flex-1 ml-72 flex flex-col">
+        {/* Header */}
+        <header className="bg-[#001B3D] text-white px-12 py-8 flex items-center justify-between sticky top-0 z-30">
+          <div className="flex items-center gap-8">
+            <button 
+              onClick={() => navigate("/owner-dashboard")} 
+              className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </button>
           </div>
-          <button className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
-            <Filter className="w-5 h-5" />
-          </button>
-        </div>
-      </header>
+          <div className="flex items-center gap-6">
+            <div className="relative hidden md:block">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+              <input 
+                type="text" 
+                placeholder="Search guardians..." 
+                className="bg-white/10 border-none rounded-2xl pl-12 pr-6 py-3 text-sm font-bold placeholder:text-white/40 focus:ring-2 focus:ring-white/20 w-64 transition-all"
+              />
+            </div>
+            <button className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+              <Filter className="w-5 h-5" />
+            </button>
+          </div>
+        </header>
 
-      <main className="flex-1 py-16 px-12 max-w-7xl mx-auto w-full space-y-16">
+        <main className="flex-1 py-16 px-12 max-w-7xl mx-auto w-full space-y-16 pb-24">
         
         {/* Page Title */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -156,22 +159,8 @@ export default function PetProfilesPage() {
           </button>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-surface-container-high py-12 px-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col items-center md:items-start">
-            <Logo className="mb-2" />
-            <p className="text-xs text-[#8E9299]">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8 text-[10px] font-bold text-[#8E9299] uppercase tracking-widest">
-            <button className="hover:text-[#001B3D] transition-colors">Privacy Policy</button>
-            <button className="hover:text-[#001B3D] transition-colors">Terms of Service</button>
-            <button className="hover:text-[#001B3D] transition-colors">Cookie Settings</button>
-            <button className="hover:text-[#001B3D] transition-colors">Accessibility</button>
-          </div>
-        </div>
-      </footer>
+      </div>
+      
     </div>
   );
 }

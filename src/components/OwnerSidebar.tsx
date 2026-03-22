@@ -54,17 +54,27 @@ export default function OwnerSidebar({ activePage }: OwnerSidebarProps) {
           <SidebarItem icon={MessageSquare} label="Messages" active={activePage === 'messages'} />
         </nav>
 
-        <div className="p-6 space-y-4">
-          <button 
-            onClick={() => navigate("/owner-booking")}
-            className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
-          >
-            <PlusCircle className="w-5 h-5" />
-            Book Appointment
-          </button>
-          <div className="pt-6 border-t border-white/10 space-y-2">
-            <SidebarItem icon={Settings} label="Settings" />
-            <SidebarItem icon={LogOut} label="Logout" onClick={() => setShowLogoutConfirm(true)} />
+        <div className="mt-auto">
+          <div className="p-6 space-y-4">
+            <button 
+              onClick={() => navigate("/owner-booking")}
+              className="w-full bg-white/10 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
+            >
+              <PlusCircle className="w-5 h-5" />
+              Book Appointment
+            </button>
+            <div className="pt-6 border-t border-white/10 space-y-2">
+              <SidebarItem icon={Settings} label="Settings" />
+              <SidebarItem icon={LogOut} label="Logout" onClick={() => setShowLogoutConfirm(true)} />
+            </div>
+          </div>
+          <div className="px-6 pb-6">
+            <button 
+              onClick={() => navigate(-1)}
+              className="w-full bg-white/5 text-white/40 font-bold py-2 px-4 rounded-xl text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all"
+            >
+              back to previous
+            </button>
           </div>
         </div>
       </aside>

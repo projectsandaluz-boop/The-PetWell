@@ -77,7 +77,7 @@ export default function AdminEditStorePage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-72 p-10">
+      <main className="flex-1 ml-72 p-10 pb-24">
         
         {/* Header */}
         <header className="flex items-center justify-between mb-12">

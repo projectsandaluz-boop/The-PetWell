@@ -21,6 +21,7 @@ import {
   Info
 } from "lucide-react";
 import Logo from "../../components/Logo";
+import OwnerSidebar from "../../components/OwnerSidebar";
 
 export default function PetDetailsPage() {
   const { id } = useParams();
@@ -48,29 +49,31 @@ export default function PetDetailsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4FF] flex flex-col">
-      {/* Header */}
-      <header className="bg-[#001B3D] text-white px-12 py-8 flex items-center justify-between sticky top-0 z-30">
-        <div className="flex items-center gap-8">
-          <button 
-            onClick={() => navigate("/owner-pet-profiles")} 
-            className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
-          >
-            <ArrowLeft className="w-6 h-6" />
-          </button>
-          <Logo variant="light" />
-        </div>
-        <div className="flex items-center gap-4">
-          <button className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
-            <Edit3 className="w-5 h-5" />
-          </button>
-          <button className="w-12 h-12 rounded-2xl bg-rose-500/20 flex items-center justify-center hover:bg-rose-500/30 transition-all text-rose-500">
-            <Trash2 className="w-5 h-5" />
-          </button>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#F0F4FF] flex">
+      <OwnerSidebar activePage="pets" />
+      
+      <div className="flex-1 ml-72 flex flex-col">
+        {/* Header */}
+        <header className="bg-[#001B3D] text-white px-12 py-8 flex items-center justify-between sticky top-0 z-30">
+          <div className="flex items-center gap-8">
+            <button 
+              onClick={() => navigate("/owner-pet-profiles")} 
+              className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+              <Edit3 className="w-5 h-5" />
+            </button>
+            <button className="w-12 h-12 rounded-2xl bg-rose-500/20 flex items-center justify-center hover:bg-rose-500/30 transition-all text-rose-500">
+              <Trash2 className="w-5 h-5" />
+            </button>
+          </div>
+        </header>
 
-      <main className="flex-1 py-16 px-6 max-w-7xl mx-auto w-full space-y-12 pb-32">
+        <main className="flex-1 py-16 px-6 max-w-7xl mx-auto w-full space-y-12 pb-32">
         
         {/* Profile Hero */}
         <section className="bg-white p-8 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high flex flex-col lg:flex-row gap-8 items-center lg:items-start">
@@ -196,6 +199,7 @@ export default function PetDetailsPage() {
           </div>
         </div>
       </main>
+      </div>
     </div>
   );
 }

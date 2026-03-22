@@ -290,19 +290,7 @@ export default function AdminDashboardPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="fixed bottom-0 left-72 right-0 bg-white border-t border-surface-container-high py-6 px-10 flex justify-between items-center z-10">
-        <div className="flex flex-col">
-          <Logo className="mb-1" />
-          <p className="text-[10px] text-secondary">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
-        </div>
-        <div className="flex gap-8 text-[10px] font-bold text-secondary uppercase tracking-widest">
-          <button className="hover:text-primary transition-colors">Privacy Policy</button>
-          <button className="hover:text-primary transition-colors">Terms of Service</button>
-          <button className="hover:text-primary transition-colors">Cookie Settings</button>
-          <button className="hover:text-primary transition-colors">Accessibility</button>
-        </div>
-      </footer>
+      
 
       <AdminModal 
         isOpen={showDeleteConfirm}

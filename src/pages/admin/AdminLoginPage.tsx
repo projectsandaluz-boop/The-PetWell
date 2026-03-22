@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center p-6 relative">
+    <div className="min-h-screen bg-surface flex items-center justify-center p-6 relative pb-28">
       <div className="absolute top-6 right-6 z-50">
         <ThemeToggle />
       </div>
@@ -155,11 +155,19 @@ export default function AdminLoginPage() {
 
             {/* Federated Access */}
             <div className="grid grid-cols-2 gap-4">
-              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary">
+              <button 
+                type="button"
+                onClick={() => navigate("/admin-dashboard")}
+                className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary"
+              >
                 <Briefcase className="w-4 h-4 text-secondary" />
                 Google Workspace
               </button>
-              <button className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary">
+              <button 
+                type="button"
+                onClick={() => navigate("/admin-dashboard")}
+                className="flex items-center justify-center gap-3 py-3 px-4 border border-surface-container-high rounded-xl hover:bg-surface-container-low transition-all font-bold text-sm text-primary"
+              >
                 <Key className="w-4 h-4 text-secondary" />
                 SSO / SAML
               </button>
@@ -172,15 +180,7 @@ export default function AdminLoginPage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="fixed bottom-6 w-full flex justify-between px-12 text-[10px] font-bold text-secondary uppercase tracking-widest">
-        <p>© 2024 PETWELL. ALL RIGHTS RESERVED.</p>
-        <div className="flex gap-8">
-          <button className="hover:text-primary transition-colors">Privacy Policy</button>
-          <button className="hover:text-primary transition-colors">Terms of Service</button>
-          <button className="hover:text-primary transition-colors">Accessibility</button>
-        </div>
-      </div>
+      
     </div>
   );
 }

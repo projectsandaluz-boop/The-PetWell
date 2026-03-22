@@ -32,6 +32,7 @@ import AddPetPage from "./pages/petowner/AddPetPage";
 import PetDetailsPage from "./pages/petowner/PetDetailsPage";
 
 import { ThemeProvider } from "./context/ThemeContext";
+import GlobalFooter from "./components/GlobalFooter";
 
 export default function App() {
   return (
@@ -65,6 +66,7 @@ export default function App() {
           <Route path="/add-pet" element={<AddPetPage />} />
           <Route path="/pet-details/:id" element={<PetDetailsPage />} />
         </Routes>
+        <GlobalFooter />
       </BrowserRouter>
     </ThemeProvider>
   );

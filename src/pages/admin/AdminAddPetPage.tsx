@@ -13,6 +13,7 @@ import {
   Loader2
 } from "lucide-react";
 import AdminModal from "../../components/AdminModal";
+import AdminSidebar from "../../components/AdminSidebar";
 
 export default function AdminAddPetPage() {
   const navigate = useNavigate();
@@ -68,9 +69,12 @@ export default function AdminAddPetPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col p-8 md:p-12">
-      {/* Header */}
-      <header className="max-w-5xl mx-auto w-full flex items-center gap-6 mb-12">
+    <div className="min-h-screen bg-[#F8FAFC] flex">
+      <AdminSidebar activePage="pet-profiles" />
+      
+      <main className="flex-1 ml-72 p-8 md:p-12 pb-40">
+        {/* Header */}
+        <header className="max-w-5xl mx-auto w-full flex items-center gap-6 mb-12">
         <button 
           onClick={() => navigate("/admin-pet-profiles")}
           className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-slate-50 transition-all border border-slate-100"
@@ -82,8 +86,8 @@ export default function AdminAddPetPage() {
           <p className="text-slate-500 font-medium">Register a new pet profile in the system.</p>
         </div>
       </header>
-
-      <main className="max-w-5xl mx-auto w-full">
+      
+      <div className="max-w-5xl mx-auto w-full">
         <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-8 md:p-16">
           {error && (
             <div className="mb-8 p-4 bg-red-50 text-red-600 rounded-2xl font-medium border border-red-100">
@@ -208,6 +212,7 @@ export default function AdminAddPetPage() {
             </div>
           </form>
         </div>
+      </div>
       </main>
 
       <AdminModal 

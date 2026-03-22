@@ -11,7 +11,9 @@ import {
   MessageSquare, 
   PlusCircle, 
   Settings, 
-  LogOut
+  LogOut,
+  Truck,
+  ShoppingBag
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
@@ -50,7 +52,9 @@ export default function OwnerSidebar({ activePage }: OwnerSidebarProps) {
           <SidebarItem icon={LayoutDashboard} label="Dashboard" active={activePage === 'dashboard'} onClick={() => navigate("/owner-dashboard")} />
           <SidebarItem icon={Users} label="Pet Profiles" active={activePage === 'pets'} onClick={() => navigate("/owner-pet-profiles")} />
           <SidebarItem icon={FileText} label="Health Records" active={activePage === 'health'} />
-          <SidebarItem icon={Calendar} label="Appointments" active={activePage === 'appointments'} onClick={() => navigate("/owner-booking")} />
+          <SidebarItem icon={Calendar} label="Appointments" active={activePage === 'appointments'} onClick={() => navigate("/owner-appointments")} />
+          <SidebarItem icon={Truck} label="My Delivery" active={activePage === 'delivery'} onClick={() => navigate("/owner-delivery")} />
+          <SidebarItem icon={ShoppingBag} label="Store" active={activePage === 'store'} onClick={() => navigate("/owner-store")} />
           <SidebarItem icon={MessageSquare} label="Messages" active={activePage === 'messages'} />
         </nav>
 

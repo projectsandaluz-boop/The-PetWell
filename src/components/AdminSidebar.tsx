@@ -11,7 +11,8 @@ import {
   Truck,
   MessageSquare,
   Settings, 
-  LogOut
+  LogOut,
+  Video
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
@@ -52,6 +53,7 @@ export default function AdminSidebar({ activePage }: AdminSidebarProps) {
           <SidebarItem icon={Calendar} label="Bookings" active={activePage === 'bookings'} onClick={() => navigate("/admin-bookings")} />
           <SidebarItem icon={ShoppingBag} label="Store" active={activePage === 'store'} onClick={() => navigate("/admin-store")} />
           <SidebarItem icon={Truck} label="Delivery Tracking" active={activePage === 'delivery'} onClick={() => navigate("/admin-delivery")} />
+          <SidebarItem icon={Video} label="CCTV" active={activePage === 'cctv'} onClick={() => navigate("/admin-cctv")} />
           <SidebarItem icon={MessageSquare} label="Feedback" active={activePage === 'feedback'} onClick={() => navigate("/admin-feedback")} />
         </nav>
 

@@ -26,10 +26,14 @@ import AdminEditStorePage from "./pages/admin/AdminEditStorePage";
 import AdminEditDeliveryPage from "./pages/admin/AdminEditDeliveryPage";
 import AdminEditUserPage from "./pages/admin/AdminEditUserPage";
 import AdminFeedbackPage from "./pages/admin/AdminFeedbackPage";
+import AdminCCTVPage from "./pages/admin/AdminCCTVPage";
 import BookingPage from "./pages/petowner/BookingPage";
 import PetProfilesPage from "./pages/petowner/PetProfilesPage";
 import AddPetPage from "./pages/petowner/AddPetPage";
 import PetDetailsPage from "./pages/petowner/PetDetailsPage";
+import OwnerDeliveryPage from "./pages/petowner/OwnerDeliveryPage";
+import OwnerStorePage from "./pages/petowner/OwnerStorePage";
+import OwnerAppointmentsPage from "./pages/petowner/OwnerAppointmentsPage";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import GlobalFooter from "./components/GlobalFooter";
@@ -61,8 +65,12 @@ export default function App() {
           <Route path="/admin-edit-delivery/:id" element={<AdminEditDeliveryPage />} />
           <Route path="/admin-edit-user/:id" element={<AdminEditUserPage />} />
           <Route path="/admin-feedback" element={<AdminFeedbackPage />} />
+          <Route path="/admin-cctv" element={<AdminCCTVPage />} />
           <Route path="/owner-booking" element={<BookingPage />} />
           <Route path="/owner-pet-profiles" element={<PetProfilesPage />} />
+          <Route path="/owner-delivery" element={<OwnerDeliveryPage />} />
+          <Route path="/owner-store" element={<OwnerStorePage />} />
+          <Route path="/owner-appointments" element={<OwnerAppointmentsPage />} />
           <Route path="/add-pet" element={<AddPetPage />} />
           <Route path="/pet-details/:id" element={<PetDetailsPage />} />
         </Routes>

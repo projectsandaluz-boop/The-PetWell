@@ -81,68 +81,87 @@ export default function OwnerDashboardPage() {
       <OwnerSidebar activePage="dashboard" />
 
       {/* Main Content */}
-      <main className="flex-1 ml-72 p-10 pb-24">
+      <motion.main 
+        initial={{ x: 20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="flex-1 ml-72 p-12 pb-24"
+      >
         
         {/* Header */}
-        <header className="flex items-center justify-between mb-12">
+        <header className="flex items-center justify-between mb-16">
           <div>
-            <h1 className="text-3xl font-extrabold text-primary mb-2 tracking-tight">Hello, Sarah</h1>
-            <p className="text-secondary font-medium">Your guardians are healthy and happy today.</p>
+            <h1 className="text-4xl font-black text-[#001B3D] mb-2 tracking-tight">Hello, Sarah</h1>
+            <p className="text-slate-500 font-medium text-lg">Your guardians are healthy and happy today.</p>
           </div>
-          <div className="flex items-center gap-6">
-            <button className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-surface-container-high flex items-center justify-center text-secondary relative">
-              <Bell className="w-6 h-6" />
-              <div className="absolute top-3 right-3 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white" />
+          <div className="flex items-center gap-8">
+            <button className="w-14 h-14 rounded-[24px] bg-white shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 relative group">
+              <Bell className="w-7 h-7 group-hover:scale-110 transition-transform" />
+              <div className="absolute top-4 right-4 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm" />
             </button>
-            <div className="flex items-center gap-4 pl-6 border-l border-surface-container-high">
+            <div className="flex items-center gap-5 pl-8 border-l border-slate-200">
               <div className="text-right">
-                <p className="font-bold text-primary text-sm">Sarah Jenkins</p>
-                <p className="text-secondary text-xs">Pet Guardian</p>
+                <p className="font-black text-[#001B3D] text-base">Sarah Jenkins</p>
+                <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Pet Guardian</p>
               </div>
-              <img 
-                src="https://picsum.photos/seed/sarah/100/100" 
-                alt="Profile" 
-                className="w-12 h-12 rounded-2xl object-cover border-2 border-white shadow-sm"
-                referrerPolicy="no-referrer"
-              />
+              <div className="w-14 h-14 rounded-[24px] overflow-hidden border-2 border-white shadow-lg ring-4 ring-[#001B3D]/5">
+                <img 
+                  src="https://picsum.photos/seed/sarah/200/200" 
+                  alt="Profile" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             </div>
           </div>
         </header>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 max-w-4xl">
-          <button onClick={() => navigate("/owner-booking")} className="flex flex-col items-center gap-4 group">
-            <div className={`w-16 h-16 rounded-2xl bg-sky-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all group-active:scale-95`}>
-              <Stethoscope className="w-8 h-8 text-primary" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-20 max-w-5xl">
+          <button onClick={() => navigate("/owner-booking")} className="flex flex-col items-center gap-5 group">
+            <div className={`w-20 h-20 rounded-[2rem] bg-blue-50 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:shadow-xl transition-all group-active:scale-95`}>
+              <Stethoscope className="w-10 h-10 text-[#001B3D]" />
             </div>
-            <span className="text-xs font-bold text-primary tracking-tight">Book Appointment</span>
+            <span className="text-sm font-black text-[#001B3D] tracking-tight">Book Appointment</span>
           </button>
-          <button onClick={() => navigate("/add-pet")} className="flex flex-col items-center gap-4 group">
-            <div className={`w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all group-active:scale-95`}>
-              <PlusCircle className="w-8 h-8 text-primary" />
+          <button onClick={() => navigate("/add-pet")} className="flex flex-col items-center gap-5 group">
+            <div className={`w-20 h-20 rounded-[2rem] bg-amber-50 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:shadow-xl transition-all group-active:scale-95`}>
+              <PlusCircle className="w-10 h-10 text-[#001B3D]" />
             </div>
-            <span className="text-xs font-bold text-primary tracking-tight">Add Pet Profile</span>
+            <span className="text-sm font-black text-[#001B3D] tracking-tight">Add Pet Profile</span>
           </button>
-          <QuickAction icon={Pill} label="Record Medication" color="bg-indigo-100" />
-          <QuickAction icon={ShoppingBag} label="Order Supplies" color="bg-slate-100" />
+          <button onClick={() => navigate("/owner-store")} className="flex flex-col items-center gap-5 group">
+            <div className={`w-20 h-20 rounded-[2rem] bg-indigo-50 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:shadow-xl transition-all group-active:scale-95`}>
+              <ShoppingBag className="w-10 h-10 text-[#001B3D]" />
+            </div>
+            <span className="text-sm font-black text-[#001B3D] tracking-tight">Order Supplies</span>
+          </button>
+          <button className="flex flex-col items-center gap-5 group">
+            <div className={`w-20 h-20 rounded-[2rem] bg-emerald-50 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:shadow-xl transition-all group-active:scale-95`}>
+              <FileText className="w-10 h-10 text-[#001B3D]" />
+            </div>
+            <span className="text-sm font-black text-[#001B3D] tracking-tight">Health Records</span>
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           
           {/* Your Guardians */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-10">
             <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-bold text-primary">Your Guardians</h3>
-              <button onClick={() => navigate("/owner-pet-profiles")} className="text-sm font-bold text-primary hover:underline">View All</button>
+              <h3 className="text-3xl font-black text-[#001B3D] tracking-tight">Your Guardians</h3>
+              <button onClick={() => navigate("/owner-pet-profiles")} className="text-sm font-black text-[#001B3D] hover:underline flex items-center gap-2">
+                View All <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <PetCard 
                 name="Cooper" 
                 breed="Beagle" 
                 age="4 years" 
                 status="Healthy" 
                 tags={['Healthy', 'Vaccinated']} 
-                image="https://picsum.photos/seed/beagle/200/200"
+                image="https://picsum.photos/seed/beagle/400/400"
               />
               <PetCard 
                 name="Luna" 
@@ -150,91 +169,113 @@ export default function OwnerDashboardPage() {
                 age="2 years" 
                 status="Check-up Due" 
                 tags={['Check-up Due']} 
-                image="https://picsum.photos/seed/cat/200/200"
+                image="https://picsum.photos/seed/cat/400/400"
               />
             </div>
 
             {/* Upcoming Appointments */}
-            <div className="pt-10">
-              <h3 className="text-2xl font-bold text-primary mb-8">Upcoming Appointments</h3>
-              <div className="bg-white p-8 rounded-[3rem] shadow-sm border border-surface-container-high flex items-center gap-8 group cursor-pointer hover:shadow-md transition-all">
-                <div className="w-20 h-24 rounded-2xl bg-surface-container-low flex flex-col items-center justify-center text-primary">
-                  <p className="text-[10px] font-extrabold uppercase tracking-widest opacity-60">Oct</p>
-                  <p className="text-3xl font-extrabold">24</p>
+            <div className="pt-12">
+              <h3 className="text-3xl font-black text-[#001B3D] mb-10 tracking-tight">Upcoming Appointments</h3>
+              <motion.div 
+                whileHover={{ x: 10 }}
+                onClick={() => navigate("/owner-appointments")}
+                className="bg-white p-10 rounded-[3.5rem] shadow-sm border border-slate-100 flex items-center gap-10 group cursor-pointer hover:shadow-xl transition-all"
+              >
+                <div className="w-24 h-28 rounded-[2rem] bg-[#001B3D] flex flex-col items-center justify-center text-white shadow-2xl shadow-blue-900/20">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 mb-1">Oct</p>
+                  <p className="text-4xl font-black">24</p>
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-xl font-bold text-primary mb-1">Annual Vaccination</h4>
-                  <p className="text-sm text-secondary font-medium mb-3">PetWell Central Clinic • 10:30 AM</p>
+                  <div className="flex items-center gap-3 mb-2">
+                    <h4 className="text-2xl font-black text-[#001B3D]">Annual Vaccination</h4>
+                    <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest">Confirmed</span>
+                  </div>
+                  <p className="text-lg text-slate-500 font-medium mb-4">PetWell Central Clinic • 10:30 AM</p>
                   <div className="flex items-center gap-3">
-                    <img src="https://picsum.photos/seed/doc/100/100" alt="Vet" className="w-6 h-6 rounded-full object-cover" referrerPolicy="no-referrer" />
-                    <p className="text-xs text-secondary font-bold">For Cooper</p>
+                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                      <img src="https://picsum.photos/seed/doc/100/100" alt="Vet" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                    <p className="text-sm text-slate-400 font-bold">For <span className="text-[#001B3D]">Cooper</span></p>
                   </div>
                 </div>
-                <ChevronRight className="w-6 h-6 text-secondary opacity-0 group-hover:opacity-100 transition-all" />
-              </div>
+                <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-[#001B3D] group-hover:text-white transition-all">
+                  <ChevronRight className="w-7 h-7" />
+                </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Right Column */}
-          <div className="space-y-10">
+          <div className="space-y-12">
             
             {/* Delivery Tracking */}
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-surface-container-high">
-              <h3 className="text-xl font-bold text-primary mb-8">Delivery Tracking</h3>
-              <div className="space-y-8 relative">
-                <div className="absolute left-3 top-2 bottom-2 w-0.5 bg-surface-container-high" />
+            <div className="bg-white p-10 rounded-[3.5rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all">
+              <div className="flex items-center justify-between mb-10">
+                <h3 className="text-2xl font-black text-[#001B3D] tracking-tight">Delivery</h3>
+                <button onClick={() => navigate("/owner-delivery")} className="text-slate-400 hover:text-[#001B3D] transition-colors">
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="space-y-10 relative">
+                <div className="absolute left-4 top-2 bottom-2 w-0.5 bg-slate-100" />
                 
-                <div className="relative pl-10">
-                  <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center z-10">
-                    <CheckCircle2 className="w-4 h-4 text-white" />
+                <div className="relative pl-12">
+                  <div className="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#001B3D] flex items-center justify-center z-10 shadow-lg shadow-blue-900/20">
+                    <CheckCircle2 className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-primary mb-1">Order Shipped</p>
-                    <p className="text-[10px] text-secondary font-medium mb-3">October 20, 2024 • 09:15 AM</p>
-                    <div className="bg-surface-container-low p-3 rounded-xl text-[10px] font-bold text-secondary">
+                    <p className="text-base font-black text-[#001B3D] mb-1">Order Shipped</p>
+                    <p className="text-xs text-slate-400 font-bold mb-4">Oct 20 • 09:15 AM</p>
+                    <div className="bg-slate-50 p-4 rounded-2xl text-xs font-bold text-slate-500 border border-slate-100">
                       Royal Canin Adult 12kg x 2
                     </div>
                   </div>
                 </div>
 
-                <div className="relative pl-10 opacity-40">
-                  <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center z-10" />
+                <div className="relative pl-12 opacity-40">
+                  <div className="absolute left-0 top-1 w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center z-10" />
                   <div>
-                    <p className="text-sm font-bold text-primary mb-1">Out for Delivery</p>
-                    <p className="text-[10px] text-secondary font-medium">Estimated: Tomorrow</p>
+                    <p className="text-base font-black text-[#001B3D] mb-1">Out for Delivery</p>
+                    <p className="text-xs text-slate-400 font-bold">Estimated: Tomorrow</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* PetWell Plus */}
-            <div className="bg-[#001B3D] p-8 rounded-[2.5rem] text-white relative overflow-hidden">
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              className="bg-[#001B3D] p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-2xl shadow-blue-900/40"
+            >
               <div className="relative z-10">
-                <h3 className="text-xl font-bold mb-4">PetWell Plus</h3>
-                <p className="text-sm text-white/70 mb-8 leading-relaxed">Unlimited tele-consultations and 15% off at our store.</p>
-                <button className="w-full bg-white text-[#001B3D] font-bold py-4 rounded-2xl hover:bg-white/90 transition-all active:scale-95">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-xl flex items-center justify-center mb-8">
+                  <ShieldCheck className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-3xl font-black mb-4 leading-tight">PetWell Plus</h3>
+                <p className="text-base text-white/60 mb-10 leading-relaxed font-medium">Unlimited tele-consultations and 15% off at our store.</p>
+                <button className="w-full bg-white text-[#001B3D] font-black py-5 rounded-[24px] hover:bg-white/90 transition-all active:scale-95 shadow-lg">
                   Upgrade Now
                 </button>
               </div>
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
-              <CheckCircle2 className="absolute bottom-4 right-4 w-20 h-20 text-white/5" />
-            </div>
+              <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
+              <CheckCircle2 className="absolute bottom-6 right-6 w-24 h-24 text-white/5" />
+            </motion.div>
 
             {/* Recent Activity */}
             <div>
-              <h3 className="text-xl font-bold text-primary mb-6">Recent Activity</h3>
-              <div className="space-y-4">
+              <h3 className="text-2xl font-black text-[#001B3D] mb-8 tracking-tight">Recent Activity</h3>
+              <div className="space-y-5">
                 {[
-                  { icon: FileText, label: 'Grooming Receipt', time: '2 hours ago', color: 'bg-indigo-100' },
-                  { icon: PlusCircle, label: 'Lab Results Added', time: 'Yesterday', color: 'bg-rose-100' }
+                  { icon: FileText, label: 'Grooming Receipt', time: '2 hours ago', color: 'bg-indigo-50' },
+                  { icon: PlusCircle, label: 'Lab Results Added', time: 'Yesterday', color: 'bg-rose-50' }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-surface-container-high shadow-sm">
-                    <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center`}>
-                      <item.icon className="w-5 h-5 text-primary" />
+                  <div key={i} className="flex items-center gap-5 p-5 rounded-[2rem] bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group cursor-pointer">
+                    <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <item.icon className="w-6 h-6 text-[#001B3D]" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-primary">{item.label}</p>
-                      <p className="text-[10px] text-secondary font-medium">{item.time}</p>
+                      <p className="text-base font-black text-[#001B3D]">{item.label}</p>
+                      <p className="text-xs text-slate-400 font-bold">{item.time}</p>
                     </div>
                   </div>
                 ))}
@@ -242,9 +283,7 @@ export default function OwnerDashboardPage() {
             </div>
           </div>
         </div>
-      </main>
-
-      
+      </motion.main>
     </div>
   );
 }

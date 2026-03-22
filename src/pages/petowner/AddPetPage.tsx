@@ -9,8 +9,31 @@ import { useNavigate } from "react-router-dom";
 import { 
   Upload,
   Save,
-  ChevronLeft
+  ChevronLeft,
+  PawPrint,
+  Shapes,
+  Cake,
+  User,
+  MapPin,
+  Phone,
+  AlertTriangle
 } from "lucide-react";
+
+const InputWithIcon = ({ icon: Icon, label, placeholder, type = "text" }: any) => (
+  <div className="space-y-3">
+    <label className="text-[15px] font-bold text-[#001B3D] tracking-tight ml-1">{label}</label>
+    <div className="relative group">
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#001B3D] transition-colors">
+        <Icon className="w-5 h-5" />
+      </div>
+      <input 
+        type={type} 
+        placeholder={placeholder}
+        className="w-full bg-[#F8FAFC] border-none rounded-2xl pl-16 pr-6 py-5 text-sm font-semibold text-[#001B3D] focus:ring-2 focus:ring-[#001B3D]/10 transition-all placeholder:text-slate-300"
+      />
+    </div>
+  </div>
+);
 
 export default function AddPetPage() {
   const navigate = useNavigate();
@@ -53,47 +76,22 @@ export default function AddPetPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Pet Name</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. Bruno"
-                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Species / Breed</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. Dog (Golden Retriever)"
-                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Owner Name</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. Kamal Perera"
-                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Age</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. 3 Years"
-                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
-                />
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+              <InputWithIcon icon={PawPrint} label="Pet Name *" placeholder="e.g. Bruno" />
+              <InputWithIcon icon={Shapes} label="Breed" placeholder="e.g. Labrador" />
+              <InputWithIcon icon={Cake} label="Age (years)" placeholder="e.g. 3" />
+              <InputWithIcon icon={User} label="Owner Name" placeholder="e.g. Kamal Perera" />
+              <InputWithIcon icon={MapPin} label="Address" placeholder="e.g. 12 Palm St" />
+              <InputWithIcon icon={Phone} label="Contact Number" placeholder="e.g. 0771234567" />
+              <InputWithIcon icon={AlertTriangle} label="Allergies" placeholder="e.g. Pollen, None" />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Medical Notes (Optional)</label>
+            <div className="space-y-3">
+              <label className="text-[15px] font-bold text-[#001B3D] tracking-tight ml-1">Medical History / Special Concerns</label>
               <textarea 
                 rows={4}
                 placeholder="Any allergies, previous surgeries or specific conditions..."
-                className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none"
+                className="w-full bg-[#F8FAFC] border-none rounded-2xl px-8 py-6 text-sm font-semibold text-[#001B3D] focus:ring-2 focus:ring-[#001B3D]/10 transition-all resize-none placeholder:text-slate-300"
               />
             </div>
 

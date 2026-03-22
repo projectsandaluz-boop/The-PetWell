@@ -7,7 +7,7 @@ export default function GlobalFooter() {
   const path = location.pathname;
 
   // Pages with no global footer (they have their own or none)
-  const noFooterPages = ["/", "/get-started"];
+  const noFooterPages = ["/", "/get-started", "/add-pet", "/admin-cctv", "/owner-delivery", "/owner-store"];
   if (noFooterPages.includes(path) || path.startsWith("/owner-")) {
     return null;
   }

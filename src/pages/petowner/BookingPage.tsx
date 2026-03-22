@@ -15,10 +15,8 @@ import {
   Check,
   Calendar as CalendarIcon,
   Clock,
-  Moon,
-  Sun
+  ChevronLeft
 } from "lucide-react";
-import ThemeToggle from "../../components/ThemeToggle";
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -78,26 +76,26 @@ export default function BookingPage() {
 
   if (isConfirmed) {
     return (
-      <div className="min-h-screen bg-surface flex items-center justify-center p-6">
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-6">
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="bg-surface p-12 rounded-[3rem] shadow-2xl text-center max-w-md w-full flex flex-col items-center border border-surface-container-high"
+          className="bg-white p-12 rounded-[40px] shadow-sm text-center max-w-md w-full flex flex-col items-center border border-slate-100"
         >
-          <div className="w-20 h-20 bg-[#22C55E] rounded-full flex items-center justify-center mb-8 shadow-lg shadow-emerald-100">
-            <Check className="w-10 h-10 text-white stroke-[3px]" />
+          <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
+            <Check className="w-10 h-10 text-emerald-500 stroke-[3px]" />
           </div>
-          <h2 className="text-3xl font-extrabold text-primary mb-4">Booking Confirmed!</h2>
-          <p className="text-secondary font-medium text-lg mb-1">
+          <h2 className="text-3xl font-extrabold text-[#001B3D] mb-4">Booking Confirmed!</h2>
+          <p className="text-slate-500 font-medium text-lg mb-1">
             {selectedService.name} at {selectedTime}
           </p>
-          <p className="text-[#22C55E] font-bold text-lg mb-10">
+          <p className="text-emerald-500 font-bold text-lg mb-10">
             Paid via {paymentMethod === 'card' ? 'Card' : paymentMethod === 'cash' ? 'Cash' : 'Online Banking'}
           </p>
           
           <button 
             onClick={() => setIsConfirmed(false)}
-            className="bg-primary text-on-primary font-bold py-4 px-12 rounded-2xl hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-primary/20"
+            className="bg-[#001B3D] text-white font-bold py-4 px-12 rounded-2xl hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20"
           >
             Book Another
           </button>
@@ -107,229 +105,207 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col">
-      
-      {/* Header */}
-      <header className="bg-primary text-on-primary px-12 py-6 flex items-center justify-between sticky top-0 z-30">
-        <button 
-          onClick={() => navigate(-1)} 
-          className="font-bold text-sm uppercase tracking-[0.2em] opacity-60 hover:opacity-100 transition-opacity"
-        >
-          BACK
-        </button>
-        <span className="text-3xl font-extrabold tracking-tighter text-white">PetWell</span>
-        <div className="flex items-center gap-6">
-          <ThemeToggle />
-          <div className="text-sm font-bold text-white/60 uppercase tracking-[0.2em]">SARAH J.</div>
-        </div>
-      </header>
-
-      <main className="flex-1 py-16 px-6 max-w-5xl mx-auto w-full space-y-12 pb-32">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center py-12 px-6">
+      <main className="w-full max-w-4xl">
         
-        {/* Page Title & Timer */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-2">
-            <h1 className="text-5xl font-extrabold text-primary tracking-tight">Book Appointment</h1>
-            <p className="text-secondary text-xl font-medium">Pick a service, slot & pay</p>
+        {/* Header */}
+        <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => navigate(-1)} 
+              className="p-3 rounded-2xl bg-white text-slate-400 hover:text-[#001B3D] shadow-sm transition-all flex items-center justify-center"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div>
+              <h1 className="text-3xl font-extrabold text-[#001B3D] mb-1 tracking-tight">Book Appointment</h1>
+              <p className="text-slate-500 font-medium">Pick a service, slot & pay</p>
+            </div>
           </div>
-          <div className="bg-surface px-6 py-4 rounded-3xl shadow-lg border border-surface-container-high flex items-center gap-4">
+          <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
             <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center">
               <Clock className="w-5 h-5 text-red-500" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-secondary uppercase tracking-widest">Session Expires In</p>
-              <p className="text-xl font-black text-primary tabular-nums">{formatTime(timeLeft)}</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Session Expires In</p>
+              <p className="text-xl font-black text-[#001B3D] tabular-nums">{formatTime(timeLeft)}</p>
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* Select Date Section */}
-        <section className="bg-surface p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-8">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-primary">Select Date</h3>
-            <div className="flex items-center gap-2 text-secondary">
-              <CalendarIcon className="w-5 h-5" />
-              <span className="font-bold text-sm">March 2026</span>
+        <div className="space-y-8">
+          {/* Select Date Section */}
+          <section className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-bold text-[#001B3D]">Select Date</h3>
+              <div className="flex items-center gap-2 text-slate-500">
+                <CalendarIcon className="w-5 h-5" />
+                <span className="font-bold text-sm">March 2026</span>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-            {dates.map((d) => (
-              <button
-                key={d.full}
-                onClick={() => setSelectedDate(d.full)}
-                className={`flex-shrink-0 w-24 py-6 rounded-[2rem] border-2 transition-all flex flex-col items-center gap-1 ${
-                  selectedDate === d.full 
-                    ? 'border-primary bg-primary text-on-primary shadow-lg shadow-primary/20' 
-                    : 'border-surface-container-high bg-surface text-primary hover:border-primary/20'
-                }`}
-              >
-                <span className={`text-xs font-bold uppercase tracking-widest ${selectedDate === d.full ? 'text-white/60' : 'text-secondary'}`}>{d.day}</span>
-                <span className="text-2xl font-black">{d.date}</span>
-                <span className={`text-[10px] font-bold uppercase tracking-widest ${selectedDate === d.full ? 'text-white/60' : 'text-secondary'}`}>{d.month}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Select Service Card */}
-        <section className="bg-surface p-12 rounded-[4rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-10">
-          <h3 className="text-2xl font-bold text-primary">Select Service</h3>
-          <div className="space-y-4">
-            {services.map((service) => (
-              <button
-                key={service.name}
-                onClick={() => setSelectedService(service)}
-                className={`w-full flex items-center justify-between p-6 rounded-3xl border-2 transition-all ${
-                  selectedService.name === service.name 
-                    ? 'border-primary bg-surface-container-low' 
-                    : 'border-surface-container-high bg-surface hover:border-primary/20'
-                }`}
-              >
-                <div className="flex items-center gap-8">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${selectedService.name === service.name ? 'bg-surface' : 'bg-surface-container-low'}`}>
-                    <service.icon className={`w-8 h-8 ${selectedService.name === service.name ? service.color : 'text-secondary'}`} />
-                  </div>
-                  <span className={`font-bold text-xl ${selectedService.name === service.name ? 'text-primary' : 'text-primary'}`}>
-                    {service.name}
-                  </span>
-                </div>
-                <div className="flex items-center gap-6">
-                  <span className={`font-bold text-xl ${selectedService.name === service.name ? 'text-primary' : 'text-secondary'}`}>
-                    Rs. {service.price}
-                  </span>
-                  {selectedService.name === service.name && (
-                    <div className="w-7 h-7 bg-primary rounded-full flex items-center justify-center">
-                      <Check className="w-4 h-4 text-white stroke-[3px]" />
-                    </div>
-                  )}
-                </div>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Available Time Slots */}
-          <section className="bg-surface p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high">
-            <h3 className="text-xl font-bold text-primary mb-8">
-              Available Time Slots
-            </h3>
-            <div className="grid grid-cols-3 gap-4">
-              {timeSlots.map((slot, i) => (
+            <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+              {dates.map((d) => (
                 <button
-                  key={i}
-                  disabled={slot.disabled}
-                  onClick={() => setSelectedTime(slot.time)}
-                  className={`py-5 px-4 rounded-[1.5rem] font-bold text-base transition-all border-2 ${
-                    selectedTime === slot.time 
-                      ? 'bg-primary text-on-primary border-primary shadow-lg shadow-primary/20' 
-                      : slot.disabled 
-                        ? 'bg-surface-container-low text-secondary/40 border-transparent cursor-not-allowed' 
-                        : 'bg-surface text-primary border-surface-container-high hover:border-primary/20'
+                  key={d.full}
+                  onClick={() => setSelectedDate(d.full)}
+                  className={`flex-shrink-0 w-20 py-5 rounded-2xl border-2 transition-all flex flex-col items-center gap-1 ${
+                    selectedDate === d.full 
+                      ? 'border-[#001B3D] bg-[#001B3D] text-white shadow-lg shadow-blue-900/20' 
+                      : 'border-slate-100 bg-slate-50 text-[#001B3D] hover:border-[#001B3D]/20'
                   }`}
                 >
-                  {slot.time}
+                  <span className={`text-[10px] font-bold uppercase tracking-widest ${selectedDate === d.full ? 'text-white/60' : 'text-slate-400'}`}>{d.day}</span>
+                  <span className="text-xl font-black">{d.date}</span>
+                  <span className={`text-[10px] font-bold uppercase tracking-widest ${selectedDate === d.full ? 'text-white/60' : 'text-slate-400'}`}>{d.month}</span>
                 </button>
               ))}
             </div>
           </section>
 
-          {/* Payment Method */}
-          <section className="bg-surface p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-surface-container-high space-y-8">
-            <h3 className="text-xl font-bold text-primary">
-              Payment Method
-            </h3>
-            
-            <div className="space-y-4">
-              <button
-                onClick={() => setPaymentMethod('card')}
-                className={`w-full flex items-center gap-6 p-5 rounded-2xl border-2 transition-all ${
-                  paymentMethod === 'card' 
-                    ? 'border-primary bg-surface-container-low' 
-                    : 'border-surface-container-high bg-surface hover:border-primary/20'
-                }`}
-              >
-                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'card' ? 'border-primary bg-primary' : 'border-surface-container-high'}`}>
-                  {paymentMethod === 'card' && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
-                </div>
-                <span className="font-bold text-base text-primary">Credit / Debit Card</span>
-              </button>
-              <button
-                onClick={() => setPaymentMethod('cash')}
-                className={`w-full flex items-center gap-6 p-5 rounded-2xl border-2 transition-all ${
-                  paymentMethod === 'cash' 
-                    ? 'border-primary bg-surface-container-low' 
-                    : 'border-surface-container-high bg-surface hover:border-primary/20'
-                }`}
-              >
-                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'cash' ? 'border-primary bg-primary' : 'border-surface-container-high'}`}>
-                  {paymentMethod === 'cash' && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
-                </div>
-                <span className="font-bold text-base text-primary">Cash on Arrival</span>
-              </button>
+          {/* Select Service Card */}
+          <section className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 space-y-6">
+            <h3 className="text-xl font-bold text-[#001B3D]">Select Service</h3>
+            <div className="space-y-3">
+              {services.map((service) => (
+                <button
+                  key={service.name}
+                  onClick={() => setSelectedService(service)}
+                  className={`w-full flex items-center justify-between p-4 rounded-2xl border-2 transition-all ${
+                    selectedService.name === service.name 
+                      ? 'border-[#001B3D] bg-slate-50' 
+                      : 'border-slate-100 bg-white hover:border-[#001B3D]/20'
+                  }`}
+                >
+                  <div className="flex items-center gap-6">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${selectedService.name === service.name ? 'bg-white' : 'bg-slate-50'}`}>
+                      <service.icon className={`w-6 h-6 ${selectedService.name === service.name ? service.color : 'text-slate-400'}`} />
+                    </div>
+                    <span className={`font-bold text-lg ${selectedService.name === service.name ? 'text-[#001B3D]' : 'text-[#001B3D]'}`}>
+                      {service.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className={`font-bold text-lg ${selectedService.name === service.name ? 'text-[#001B3D]' : 'text-slate-500'}`}>
+                      Rs. {service.price}
+                    </span>
+                    {selectedService.name === service.name && (
+                      <div className="w-6 h-6 bg-[#001B3D] rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white stroke-[3px]" />
+                      </div>
+                    )}
+                  </div>
+                </button>
+              ))}
             </div>
-
-            {paymentMethod === 'card' && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                className="space-y-6 pt-6 border-t border-surface-container-high"
-              >
-                <div className="space-y-3">
-                  <label className="text-xs font-bold text-secondary uppercase tracking-widest">Card Number</label>
-                  <input 
-                    type="text" 
-                    placeholder="0000 0000 0000 0000" 
-                    className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-primary/20 transition-all"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <label className="text-xs font-bold text-secondary uppercase tracking-widest">Expiry MM/YY</label>
-                    <input 
-                      type="text" 
-                      placeholder="MM / YY" 
-                      className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-primary/20 transition-all"
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-xs font-bold text-secondary uppercase tracking-widest">CVV</label>
-                    <input 
-                      type="text" 
-                      placeholder="000" 
-                      className="w-full bg-surface-container-low border-none rounded-2xl px-6 py-5 text-primary font-bold focus:ring-2 focus:ring-primary/20 transition-all"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            )}
           </section>
-        </div>
 
-        {/* Action Button */}
-        <button 
-          onClick={handleConfirm}
-          className="w-full bg-primary text-on-primary font-bold py-6 rounded-[2rem] hover:opacity-95 transition-all active:scale-[0.99] shadow-2xl shadow-primary/20 text-xl"
-        >
-          Pay & Confirm
-        </button>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Available Time Slots */}
+            <section className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 space-y-6">
+              <h3 className="text-xl font-bold text-[#001B3D]">
+                Available Time Slots
+              </h3>
+              <div className="grid grid-cols-3 gap-3">
+                {timeSlots.map((slot, i) => (
+                  <button
+                    key={i}
+                    disabled={slot.disabled}
+                    onClick={() => setSelectedTime(slot.time)}
+                    className={`py-3 px-2 rounded-xl font-bold text-sm transition-all border-2 ${
+                      selectedTime === slot.time 
+                        ? 'bg-[#001B3D] text-white border-[#001B3D] shadow-lg shadow-blue-900/20' 
+                        : slot.disabled 
+                          ? 'bg-slate-50 text-slate-300 border-transparent cursor-not-allowed' 
+                          : 'bg-white text-[#001B3D] border-slate-100 hover:border-[#001B3D]/20'
+                    }`}
+                  >
+                    {slot.time}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* Payment Method */}
+            <section className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 space-y-6">
+              <h3 className="text-xl font-bold text-[#001B3D]">
+                Payment Method
+              </h3>
+              
+              <div className="space-y-3">
+                <button
+                  onClick={() => setPaymentMethod('card')}
+                  className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all ${
+                    paymentMethod === 'card' 
+                      ? 'border-[#001B3D] bg-slate-50' 
+                      : 'border-slate-100 bg-white hover:border-[#001B3D]/20'
+                  }`}
+                >
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#001B3D] bg-[#001B3D]' : 'border-slate-200'}`}>
+                    {paymentMethod === 'card' && <div className="w-2 h-2 rounded-full bg-white" />}
+                  </div>
+                  <span className="font-bold text-sm text-[#001B3D]">Credit / Debit Card</span>
+                </button>
+                <button
+                  onClick={() => setPaymentMethod('cash')}
+                  className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all ${
+                    paymentMethod === 'cash' 
+                      ? 'border-[#001B3D] bg-slate-50' 
+                      : 'border-slate-100 bg-white hover:border-[#001B3D]/20'
+                  }`}
+                >
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'cash' ? 'border-[#001B3D] bg-[#001B3D]' : 'border-slate-200'}`}>
+                    {paymentMethod === 'cash' && <div className="w-2 h-2 rounded-full bg-white" />}
+                  </div>
+                  <span className="font-bold text-sm text-[#001B3D]">Cash on Arrival</span>
+                </button>
+              </div>
+
+              {paymentMethod === 'card' && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="space-y-4 pt-4 border-t border-slate-100"
+                >
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Card Number</label>
+                    <input 
+                      type="text" 
+                      placeholder="0000 0000 0000 0000" 
+                      className="w-full bg-slate-50 border-none rounded-2xl px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Expiry MM/YY</label>
+                      <input 
+                        type="text" 
+                        placeholder="MM / YY" 
+                        className="w-full bg-slate-50 border-none rounded-2xl px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">CVV</label>
+                      <input 
+                        type="text" 
+                        placeholder="000" 
+                        className="w-full bg-slate-50 border-none rounded-2xl px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-[#001B3D]/10 transition-all"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </section>
+          </div>
+
+          {/* Action Button */}
+          <button 
+            onClick={handleConfirm}
+            className="w-full bg-[#001B3D] text-white font-bold py-4 rounded-2xl hover:bg-[#002b61] transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
+          >
+            Pay & Confirm
+          </button>
+        </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-surface border-t border-surface-container-high py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col items-center md:items-start">
-            <span className="text-2xl font-extrabold tracking-tighter text-primary mb-2">PetWell</span>
-            <p className="text-xs text-secondary">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8 text-[10px] font-bold text-secondary uppercase tracking-widest">
-            <button className="hover:text-primary transition-colors">Privacy Policy</button>
-            <button className="hover:text-primary transition-colors">Terms of Service</button>
-            <button className="hover:text-primary transition-colors">Cookie Settings</button>
-            <button className="hover:text-primary transition-colors">Accessibility</button>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

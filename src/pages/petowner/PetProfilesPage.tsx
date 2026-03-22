@@ -13,6 +13,7 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo";
 
 const PetCard = ({ name, breed, age, owner, status, tags, image, onClick }: any) => (
   <button 
@@ -99,7 +100,7 @@ export default function PetProfilesPage() {
           >
             <ArrowLeft className="w-6 h-6" />
           </button>
-          <span className="text-3xl font-extrabold tracking-tighter text-white">PetWell</span>
+          <Logo variant="light" />
         </div>
         <div className="flex items-center gap-6">
           <div className="relative hidden md:block">
@@ -160,7 +161,7 @@ export default function PetProfilesPage() {
       <footer className="bg-white border-t border-surface-container-high py-12 px-12">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col items-center md:items-start">
-            <span className="text-2xl font-extrabold tracking-tighter text-[#001B3D] mb-2">PetWell</span>
+            <Logo className="mb-2" />
             <p className="text-xs text-[#8E9299]">© 2024 PetWell. The Empathetic Guardian. All rights reserved.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-8 text-[10px] font-bold text-[#8E9299] uppercase tracking-widest">

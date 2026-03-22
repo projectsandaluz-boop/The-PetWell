@@ -20,6 +20,7 @@ import {
   Heart,
   Info
 } from "lucide-react";
+import Logo from "../../components/Logo";
 
 export default function PetDetailsPage() {
   const { id } = useParams();
@@ -57,7 +58,7 @@ export default function PetDetailsPage() {
           >
             <ArrowLeft className="w-6 h-6" />
           </button>
-          <span className="text-3xl font-extrabold tracking-tighter text-white">PetWell</span>
+          <Logo variant="light" />
         </div>
         <div className="flex items-center gap-4">
           <button className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">

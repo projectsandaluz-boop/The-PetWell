@@ -4,7 +4,7 @@
  */
 
 import { motion } from "motion/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   Upload,

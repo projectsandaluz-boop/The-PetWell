@@ -4,7 +4,7 @@
  */
 
 import { motion, AnimatePresence } from "motion/react";
-import { X, CheckCircle2, AlertCircle, Trash2 } from "lucide-react";
+import { X, CheckCircle2, AlertCircle, Trash2, LogOut } from "lucide-react";
 
 interface AdminModalProps {
   isOpen: boolean;

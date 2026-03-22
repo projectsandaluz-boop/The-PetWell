@@ -17,19 +17,6 @@
   --color-on-secondary-fixed-variant: #374951;
 }
 
-.dark {
-  --color-primary: #d5e3ff;
-  --color-on-primary: #001e40;
-  --color-secondary: #b1c9d6;
-  --color-surface: #0f1419;
-  --color-surface-tint: #a8c8ff;
-  --color-primary-fixed: #001e40;
-  --color-secondary-fixed: #374951;
-  --color-surface-container-low: #1a1f24;
-  --color-surface-container-high: #252a2f;
-  --color-on-secondary-fixed-variant: #d2e6ef;
-}
-
 @layer base {
   body {
     @apply font-body bg-surface text-primary;

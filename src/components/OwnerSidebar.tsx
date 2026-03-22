@@ -52,11 +52,9 @@ export default function OwnerSidebar({ activePage }: OwnerSidebarProps) {
         <nav className="flex-1 mt-8">
           <SidebarItem icon={LayoutDashboard} label="Dashboard" active={activePage === 'dashboard'} onClick={() => navigate("/owner-dashboard")} />
           <SidebarItem icon={Users} label="Pet Profiles" active={activePage === 'pets'} onClick={() => navigate("/owner-pet-profiles")} />
-          <SidebarItem icon={FileText} label="Health Records" active={activePage === 'health'} />
           <SidebarItem icon={Calendar} label="Appointments" active={activePage === 'appointments'} onClick={() => navigate("/owner-appointments")} />
           <SidebarItem icon={Truck} label="My Delivery" active={activePage === 'delivery'} onClick={() => navigate("/owner-delivery")} />
           <SidebarItem icon={ShoppingBag} label="Store" active={activePage === 'store'} onClick={() => navigate("/owner-store")} />
-          <SidebarItem icon={MessageSquare} label="Messages" active={activePage === 'messages'} />
         </nav>
 
         <div className="mt-auto">

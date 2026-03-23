@@ -42,7 +42,9 @@ export default function AdminSignupPage() {
       localStorage.setItem("token", response.token);
       navigate("/admin-dashboard");
     } catch (err: any) {
-      setError(err.response?.data?.message || "Registration failed. Please try again.");
+      console.error("Registration error:", err);
+      const message = err.response?.data?.message || err.message || "Registration failed. Please try again.";
+      setError(message);
     } finally {
       setLoading(false);
     }
